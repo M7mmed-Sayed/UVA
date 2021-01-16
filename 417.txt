@@ -1,0 +1,154 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include <bits/stdc++.h>
+using namespace std;
+#define endl '\n'
+#define ll long long
+
+void run() {
+	ios::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
+#ifndef ONLINE_JUDGE
+	freopen("input.in", "r", stdin);
+	//freopen("output.out", "w", stdout);
+#else
+#endif
+}
+#define all(v) (v.begin(),v.end())
+long long  gcd(long long x, long long y)
+{
+	if (y == 0)
+		return x;
+	else return gcd(y, x % y);
+}
+long long lcm(long long x, long long y)
+{
+	return  x / gcd(x, y) * y;
+}
+ll fact(int n, int x, int y, int i = 1, int j = 1, int k = 1, ll sum = 1) {
+	if (i == n + 1)
+		return sum;
+	sum *= i;
+	if (x >= j)
+	{
+		sum /= j;
+		j++;
+	}
+	else if (k <= y) {
+		sum /= k;
+		k++;
+	}
+	fact(n, x, y, i + 1, j, k, sum);
+
+}
+#define PI cos(-1)
+void yon(ll x) {
+	if(x)	cout << "YES\n";
+	else
+		cout << "NO\n";
+}
+ll fac(int x) {
+	ll f = 1;
+	for (int i = 2; i <= x; i++) {
+		f *= i;
+	}
+	return f;
+}
+string arr[500009];
+int orr[100005];
+int main() {
+	run();
+	int n,x;
+	map < string, ll>san;
+	string s,so="";
+	ll mo = 0;
+	for (int i = 0; i < 26; i++)
+	{
+		so += i + 'a';
+		san [so] = mo + 1;
+		so.clear();
+		mo++;
+	}
+	for (int i = 0; i < 26; i++)
+	{
+		for (int ii = i+1; ii < 26; ii++)
+		{
+			so += i + 'a';
+			so += ii + 'a';
+			san[so] = mo + 1;
+			mo++;
+			so.clear();
+		}
+	}
+
+	
+	for (int i = 0; i < 26; i++)
+	{
+		for (int ii = i + 1; ii < 26; ii++)
+		{
+			for (int iii = ii + 1; iii < 26; iii++)
+			{
+				so += i + 'a';
+				so += ii + 'a';
+				so += iii + 'a';
+				san[so] = mo + 1;
+				mo++;
+				so.clear();
+			}
+		}
+	}
+	for (int i = 0; i < 26; i++)
+	{
+		for (int ii = i + 1; ii < 26; ii++)
+		{
+			for (int iii = ii + 1; iii < 26; iii++)
+			{
+				for (int iiii = iii + 1; iiii < 26; iiii++)
+				{
+					so += i + 'a';
+					so += ii + 'a';
+					so += iii + 'a';
+					so += iiii + 'a';
+					san[so] = mo + 1;
+					mo++;
+					so.clear();
+				}
+			}
+		}
+	}
+	for (int i = 0; i < 26; i++)
+	{
+		for (int b = i + 1; b < 26; b++)
+		{
+			for (int c = b + 1; c < 26; c++)
+			{
+				for (int d = c + 1; d < 26; d++)
+				{
+					for (int e = d + 1; e < 26; e++)
+					{
+						so += i + 'a';
+						so += b + 'a';
+						so += c + 'a';
+						so += d + 'a';
+						so += e + 'a';
+						san[so] = mo + 1;
+						mo++;
+						so.clear();
+					}
+				}
+			}
+		}
+	}
+
+	int k = 0;
+	string ss = "";
+	
+	while(cin >> ss)
+	{
+	
+		cout << san[ss] << endl;
+		//cin >> ss;
+		
+	}
+
+
+}
+	

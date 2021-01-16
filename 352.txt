@@ -1,0 +1,99 @@
+#define _CRT_SECURE_NO_WARNINGS
+/*                   ФйрФоФг щеД нМя гАрго гАйчФЛ                    */
+/*       ФЦг йояМ Дщс Цгпг й≤сх шог ФЦг йояМ Дщс хгМ гяж йЦФй      */
+#include <bits/stdc++.h>
+#include<unordered_map>
+#include<iomanip>
+#include<fstream>
+using namespace std;
+#define endl '\n'
+#define ll long long
+#define ull unsigned long long
+#define dll double
+#define PI acos(-1)
+#define watch(x) cerr<<#x<<" = "<<x<<" \n"
+#define sz(n) n.size()
+#define M_Sayed fast()
+#define all(v) v.begin(),v.end()
+#define allr(v) v.rbegin(),v.rend()
+#define RT(v) return cout<<v,0
+#define MP					make_pair
+int dx[] = { 0, 1, 0, -1, 1, 1, -1, -1 };
+int dy[] = { 1, 0, -1, 0, 1, -1, 1, -1 };
+const double EPS = (1e-7);
+const ll  mod = (1e9 + 7), OO = 1e9;
+ll Ceil(ll x, ll y)
+{
+    return (x + y - 1) / y;
+}
+void run()
+{
+#ifndef ONLINE_JUDGE
+    freopen("input.txt", "r", stdin);
+    //freopen("output.txt", "w", stdout);
+#else
+    //freopen("input", "r", stdin);
+    //freopen("output", "w", stdout);
+#endif
+}
+void fast()
+{
+    ios::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
+}
+ll m,n,t,ans;
+vector<vector<int>>g;
+int vis[50][50];
+void dfs(int x,int y)
+{
+    if(vis[x][y]==t+1||!g[x][y])
+        return ;
+    vis[x][y]=t+1;
+    for(int i=0; i<8; i++ )
+    {
+        if(vis[x+dx[i]][y+dy[i]]!=t+1)
+        {
+            ans++;
+            dfs(x+dx[i],y+dy[i]);
+        }
+    }
+}
+int main()
+{
+    //run();
+    M_Sayed;
+    int test =1;
+    while(cin>>n)
+    {
+        t++;
+        g.clear();
+        ll cnt=0;
+        m=n;
+        g.resize(n+5,vector<int>(m+5,0));
+        for(int i=1; i<=n; i++)
+         {
+             
+            for(int j=1; j<=m; j++)
+            {
+                char a;
+                cin>>a;
+                g[i][j]=a-'0';
+            }
+        }
+        for(int i=1; i<=n; i++)
+            for(int j=1; j<=m; j++)
+            {
+                if(vis[i][j]!=t+1&&g[i][j])
+                {
+                     dfs(i,j);
+                     ans=0;
+                    cnt++;
+                }
+            }
+          
+        cout<<"Image number "<<test++<<" contains "<<cnt <<" war eagles.\n";
+
+    }
+
+}

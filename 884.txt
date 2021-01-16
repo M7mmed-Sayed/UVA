@@ -1,0 +1,78 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include <bits/stdc++.h>
+using namespace std;
+#define endl '\n'
+#define ll long long
+#define ull unsigned long long
+#define dll double
+#define PI acos(-1)
+#define sz(n) n.size()
+#define RR return
+#define M7mmed_Sayed run()
+#define M_Sayed fast() 
+#define all(v) v.begin(),v.end()
+void run() {
+#ifndef ONLINE_JUDGE
+	freopen("input.in", "r", stdin);
+	//freopen("output.out", "w", stdout);
+#else
+#endif
+}
+void fast() {
+	ios::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
+}
+ll  gcd(ll x, ll y) { return(y == 0) ? x : gcd(y, x % y); }
+ull lcm(ll x, ll y) { RR  x / gcd(x, y) * y; }
+ll power(ll x, ll k, ll mod)
+{
+	ll ret = 1;
+	while (k) {
+		if (k & 1) ret = (ret * x) % mod;
+		k >>= 1; x = (x * x) % mod;
+	}
+	return ret;
+}
+ll nCr(ll n, ll r) {
+	ll ans = 1;
+	ll div = 1;
+	if (n)
+		for (ll i = r + 1; i <= n; i++) {
+			ans = ans * i;
+			ans /= div;
+			div++;
+		}
+	return ans;
+}
+
+unsigned ll pri(ll x) {
+	ll prime = 0;
+	for (int i = 2; i * i <= x; i++) {
+		while(x % i == 0)
+		{
+			prime++;
+			x /= i;
+		}
+
+	}
+	if (x >= 2)
+		prime++;
+	return prime;
+}
+int arr[1000005];
+void prifa() {
+	for (int i = 1; i <= 1e6 + 2;i++) {
+		arr[i] = arr[i - 1] + pri(i);
+	}
+}
+int main()
+{
+	M7mmed_Sayed;
+	M_Sayed;
+	ll n,m;
+	prifa();
+	while (cin >> n && n)
+	{
+		cout << arr[n] << endl;
+	}
+	
+}

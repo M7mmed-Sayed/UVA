@@ -1,0 +1,44 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include <bits/stdc++.h>
+using namespace std;
+#define endl '\n'
+#define ll long long
+#define ull unsigned long long
+#define dll double
+#define PI acos(-1)
+#define sz(n) n.size()
+#define RR return
+#define M7mmed_Sayed run()
+#define M_Sayed fast() 
+#define all(v) v.begin(),v.end()
+void run() {
+#ifndef ONLINE_JUDGE
+	freopen("input.in", "r", stdin);
+	//freopen("output.out", "w", stdout);
+#else
+#endif
+}
+void fast() {
+	ios::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
+}
+ll  gcd(ll x, ll y) { return(y == 0) ? x : gcd(y, x % y); }
+ull lcm(ll x, ll y) { RR  x / gcd(x, y) * y; }
+vector<vector<int>>gra(1000);
+int arr[100006];
+int main()
+{
+	
+	ll n, m;
+	M7mmed_Sayed;
+	M_Sayed;
+	while (cin >> n && n)
+	{
+		ll G = 0;
+		for (ll i = 1; i < n; i++)
+			for (ll j = i + 1; j <= n; j++)
+			{
+				G += gcd(i, j);
+			}
+		cout << G << endl;
+	}
+}

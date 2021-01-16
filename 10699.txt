@@ -1,0 +1,68 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include <bits/stdc++.h>
+using namespace std;
+#define endl '\n'
+#define ll long long
+#define ull unsigned long long
+#define dll double
+#define PI acos(-1)
+#define sz(n) n.size()
+#define RR return
+#define M7mmed_Sayed run()
+#define M_Sayed fast() 
+#define all(v) v.begin(),v.end()
+void run() {
+#ifndef ONLINE_JUDGE
+	freopen("input.in", "r", stdin);
+	//freopen("output.out", "w", stdout);
+#else
+#endif
+}
+void fast() {
+	ios::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
+}
+ll  gcd(ll x, ll y) { RR(y == 0) ? x : gcd(y, x % y); }
+ull lcm(ll x, ll y) { RR  x / gcd(x, y) * y; }
+const ll lenth = 1000009;
+bool arr[lenth] ;
+
+int main()
+{
+
+	M7mmed_Sayed;
+	M_Sayed;
+	
+	
+	for (int i = 2; i <= lenth; i++) {
+		if (arr[i] == 0)
+		{
+			for (int j = i + i; j <= lenth; j += i) 
+			{
+				arr[j] = 1;
+			}
+		}
+	}
+	ll sum = 0,con=0,n;
+	while (cin >> n&&n) 
+	{
+		con = 0;
+		ll x = n;
+		for (int i = 2; i <= sqrt(n); i++) {
+			if (n % i == 0 && arr[i] == 0)
+			{
+
+				con++;
+
+				while (n % i == 0) {
+					n /= i;
+				}
+			}
+			
+			
+		}
+		if (n > 2)
+			con++;
+		cout << x << " : " << con<<endl;
+	}
+	
+}

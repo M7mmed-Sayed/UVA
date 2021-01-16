@@ -1,0 +1,51 @@
+#define _CRT_SECURE_NO_WARNINGS
+/*                   وتزودوا فإن خير الزاد التقوى                    */
+/*       وما تدري نفس ماذا تکسب غدا وما تدري نفس باي ارض تموت      */
+#include <bits/stdc++.h>
+#include<unordered_map>
+using namespace std;
+#define endl '\n'
+#define ll long long
+#define sz(n) n.size()
+#define M_Sayed fast() 
+#define all(v) v.begin(),v.end()
+void run() {
+#ifndef ONLINE_JUDGE
+	freopen("input.txt", "r", stdin);
+	//freopen("output.txt", "w", stdout);
+#else
+#endif
+}
+void fast() { ios::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL); }
+ll sum,n,m;
+ll p,x;
+int main()
+{
+	run();
+	M_Sayed;
+	cin >> n;
+		string s;
+	while (n--) {
+		cin >> p;
+		cin.ignore();
+		map<ll, vector<ll>>mp;
+		for (int i = 1; i <= p; i++) {
+			getline(cin, s);
+			stringstream r(s);
+			ll c = 0;
+			while (r >> x)
+			{
+				c++;
+			}
+			mp[c].push_back(i);
+		}
+		vector<ll> it = mp.begin()->second;
+		for (int i = 0; i < sz(it); i++) {
+			if (i)cout << " ";
+			cout << it[i];
+		}
+		cout << endl;
+
+	}
+	
+}

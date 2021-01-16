@@ -1,0 +1,185 @@
+#define _CRT_SECURE_NO_WARNINGS
+/*                   وتزودوا فإن خير الزاد التقوى                    */
+/*       وما تدري نفس ماذا تکسب غدا وما تدري نفس باي ارض تموت      */
+#include <bits/stdc++.h>
+#include<unordered_map>
+#include<iomanip>
+#include<fstream>
+using namespace std;
+#define endl '\n'
+#define ll long long
+#define ull unsigned long long
+#define dll double
+#define PI acos(-1)
+#define watch(x) cerr<<#x<<" = "<<x<<" \n"
+#define sz(n) n.size()
+#define M_Sayed fast()
+#define all(v) v.begin(),v.end()
+#define allr(v) v.rbegin(),v.rend()
+#define RT(v) return cout<<v,0
+#define MP					make_pair
+int dx[] = { 0, 1, 0, -1, 1, 1, -1, -1 };
+int dy[] = { 1, 0, -1, 0, 1, -1, 1, -1 };
+const double EPS = (1e-7);
+const ll  mod = (1e9 + 7), OO = 1e9;
+ll Ceil(ll x, ll y)
+{
+    return (x + y - 1) / y;
+}
+void run()
+{
+#ifndef ONLINE_JUDGE
+    freopen("input.txt", "r", stdin);
+    freopen("output.txt", "w", stdout);
+#else
+    //freopen("input", "r", stdin);
+    //freopen("output", "w", stdout);
+#endif
+}
+void fast()
+{
+    ios::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
+}
+ll n,m;
+vector< vector<int> > adjList;
+vector< set<int> > com;
+vector<int> inStack, lowLink, dfn;
+stack<int> stk;
+int ndfn,mx=1e7,ind;
+vector<int>sol;
+map<int,vector<int>>mp;
+int edj_[112][112],vis[112];
+void tarjan(int node)
+{
+    lowLink[node] = dfn[node] = ndfn++,
+                                inStack[node] = 1;
+    stk.push(node);
+    for(auto ch: adjList[node])
+    {
+        if (dfn[ch] == -1)
+        {
+            tarjan(ch);
+            lowLink[node] = min(lowLink[node], lowLink[ch]);
+        }
+        else if (inStack[ch])
+            lowLink[node] = min(lowLink[node], dfn[ch]);
+    }
+    if (lowLink[node] == dfn[node])
+    {
+        int x = -1;
+        com.push_back(set<int>());
+        int c=0;
+        while (x != node)
+        {
+            c++;
+            x = stk.top(),
+
+            com[ind].insert(x);
+            stk.pop(), inStack[x] = 0;
+        }
+        mx=min(c,mx);
+        ind++;
+    }
+}
+void dfs(int u)
+{
+    if(!vis[u]){
+            sol.push_back(u-1);
+            vis[u]=1;
+        for(auto v:adjList[u] )dfs(v);
+    }
+}
+int main()
+{
+    M_Sayed;
+    run();
+    while(cin >>n)
+    {
+        if(!n)RT("");
+        lowLink=dfn= vector<int>(n+1,-1);
+        inStack=vector<int>(n+1,0);
+        adjList=vector< vector<int>>(n+1);
+
+        ndfn =ind=mx=0;
+        map<string,int>mp;
+        map<int,string>rmp;
+        string s,s1;
+        cin.ignore();
+        int ind=1;
+        vector<string>gh;
+        memset(edj_,0,sizeof edj_);
+        memset(vis,0,sizeof vis);
+        for(int i=0; i<n; i++)
+        {
+            getline(cin,s);
+            stringstream ss(s);
+            vector<int> sup;
+            ss>>s1;
+            int j=0;
+            if(mp.find(s1)!=mp.end())
+            {
+                j=mp[s1];
+            }
+            else
+            {
+                rmp[ind]=s1;
+                gh.push_back(s1);
+                mp[s1]=ind;
+                j=ind;
+                ind++;
+            }
+            int a=j;
+            while(ss>>s1)
+            {
+                int j=0;
+                //cout<<s1<<" ";
+                if(mp.find(s1)!=mp.end())
+                {
+                    j=mp[s1];
+                }
+                else
+                {
+                    gh.push_back(s1);
+                    mp[s1]=ind;
+                    rmp[ind]=s1;
+                    j=ind;
+                    ind++;
+                }
+                sup.push_back(j);
+            }
+           // cout<<sz(gh);
+            //cout<<endl;
+            for(auto b:sup)
+            {
+               if(edj_[a][b])continue;
+                edj_[a][b]=1;
+                adjList[a].push_back(b);
+            }
+          //  cout<<endl;
+        }
+        for(int i=1;i<=n;i++){
+            if(dfn[i]==-1)tarjan(i);
+        }
+        for(auto i: com){
+            if(sz(i)>1)
+            {
+                for(auto j:i){
+                    dfs(j);
+                    break;
+                }
+            }
+        }
+        set<string>stt;
+        for(auto i:sol)stt.insert(gh[i]);
+        sz(sol);
+        cout<<sz(sol)<<endl;
+        int sp=0;
+        for(auto i:stt){if(sp)cout<<" ";sp=1;cout<<i;}
+        cout<<endl;
+        sol.clear();
+    com.clear();
+        int ans=0;
+    }
+}

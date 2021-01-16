@@ -1,0 +1,77 @@
+#define _CRT_SECURE_NO_WARNINGS
+/*                   وتزودوا فإن خير الزاد التقوى                    */
+/*       وما تدري نفس ماذا تکسب غدا وما تدري نفس باي ارض تموت      */
+#include <bits/stdc++.h>
+#include<unordered_map>
+#include<iomanip>
+#include<fstream>
+using namespace std;
+#include<iostream>
+#define endl '\n'
+#define ll long long
+#define ull unsigned long long
+#define dll double
+#define PI acos(-1)
+#define watch(x) cerr<<#x<<" = { "<<x<<" }\n"
+#define mem(dp,a) memset(dp,a,sizeof (dp))
+#define sz(n) n.size()
+#define M_Sayed fast() 
+#define all(v) v.begin(),v.end()
+#define allr(v) v.rbegin(),v.rend()
+#define RT(v) return cout<<v,0
+int dx[] = { 0, 1, 0, -1, 1, 1, -1, -1 };
+int dy[] = { 1, 0, -1, 0, 1, -1, 1, -1 };
+const double EPS = (1e-7);
+ll Ceil(ll x, ll y) { return (x + y - 1) / y; }
+void run() {
+#ifndef ONLINE_JUDGE
+	freopen("input.txt", "r", stdin);
+	freopen("output.txt", "w", stdout);
+#else
+#endif
+}
+ll gcd(ll a, ll b) { return !b ? abs(a) : gcd(b, a % b); }
+ll lcm(ll a, ll b) { return abs(a / gcd(a, b)) * b; }
+ll power(ll x, ll y, ll mod) {
+	if (y == 0) return 1;
+	if (y == 1) return x % mod;
+	ll r = power(x, y >> 1, mod);
+	return (((r * r) % mod) * power(x, y & 1, mod)) % mod;
+}
+void fast() { ios::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL); }
+ll n, m, k;
+int arr[102][102];
+int main()
+{
+	run();
+	M_Sayed;
+	while (cin >> n)
+	{
+		mem(arr, 0);
+		for (int i = 1; i <= n; i++)
+			for (int j = 1; j <= n; j++)
+				cin >> arr[i][j];
+
+		for (int i = 1; i <= n; i++) {
+			for (int j = 1; j <= n; j++) {
+				arr[i][j] = arr[i - 1][j] + arr[i][j - 1] - arr[i - 1][j - 1] + arr[i][j];
+			}
+		}
+
+		ll mx = -1e15;
+		for (int i = 1; i <= n; i++) {
+			for (int j = 1; j <= n; j++)
+			{
+				for (int a = i; a <= n; a++) {
+					for (int b = j; b <= n; b++)
+					{
+						ll sum = arr[a][b] - arr[i - 1][b] - arr[a][j - 1] + arr[i - 1][j - 1];
+						mx = max(mx, sum);
+					}
+				}
+			}
+		}
+		cout << mx << endl;
+	}
+
+}

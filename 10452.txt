@@ -1,0 +1,80 @@
+#define _CRT_SECURE_NO_WARNINGS
+/*                   وتزودوا فإن خير الزاد التقوى                    */
+/*       وما تدري نفس ماذا تکسب غدا وما تدري نفس باي ارض تموت      */
+#include <bits/stdc++.h>
+#include<unordered_map>
+#include<iomanip>
+#include<fstream>
+using namespace std;
+#include<iostream>
+#define endl '\n'
+#define ll long long
+#define PI acos(-1)
+#define watch(x) cerr<<#x<<" = { "<<x<<" }\n"
+#define sz(n) n.size()
+#define M_Sayed fast()
+#define all(v) v.begin(),v.end()
+#define allr(v) v.rbegin(),v.rend()
+#define RT(v) return cout<<v,0
+int dx[] = { 0,  0, -1, 1, 1, -1, -1 };
+int dy[] = { 1,  -1, 0, 1, -1, 1, -1 };
+const double EPS = (1e-7);
+const ll mod=1e9+7;
+void fast()
+{
+    ios::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
+}
+ ll n, m, t = 1, k;
+string s="IEHOVA#",ans,sol,dis="rlf";
+char arr[12][12];
+pair<int,int>st,ed;
+void solve(int x,int y)
+{
+    if(arr[x][y]=='#')
+    {
+        ans=sol;
+        return;
+    }
+    for(int i=0; i<=3; i++)
+    {
+        if(arr[x+dx[i]][y+dy[i]]==s[sz(sol)])
+        {
+            sol.push_back(dis[i%3]);
+            solve(x+dx[i],y+dy[i]);
+            sol.pop_back();
+        }
+    }
+
+}
+int main()
+{
+    //run();
+    M_Sayed;
+    cin>>t;
+    while(t--)
+    {cin>>n>>m;
+    for(int i=1; i<=n; i++)
+    {
+        for(int j=1; j<=m; j++)
+        {
+            cin>>arr[i][j];
+            if(arr[i][j]=='@')st= {i,j};
+            if(arr[i][j]=='#')ed= {i,j};
+        }
+    }
+    solve(st.first,st.second);
+    int j=0;
+    for(auto i:ans)
+    {
+        if(j)cout<<" ";
+      if(i=='r')cout<<"right";
+      else if(i=='l')cout<<"left";
+      else cout<<"forth";
+        j++;
+    }
+    cout<<endl;
+    }
+
+}

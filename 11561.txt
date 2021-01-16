@@ -1,0 +1,86 @@
+#define _CRT_SECURE_NO_WARNINGS
+/*                   وتزودوا فإن خير الزاد التقوى                    */
+/*       وما تدري نفس ماذا تکسب غدا وما تدري نفس باي ارض تموت      */
+#include <bits/stdc++.h>
+#include<unordered_map>
+#include<iomanip>
+#include<fstream>
+using namespace std;
+#define endl '\n'
+#define ll long long
+#define PI acos(-1)
+#define watch(x) cout<<#x<<" = { "<<x<<" }\n"
+#define sz(n) n.size()
+#define M_Sayed fast() 
+#define all(v) v.begin(),v.end()
+#define allr(v) v.rbegin(),v.rend()
+#define RT(v) return cout<<v,0
+int dx[] = { 0, 1, 0, -1, 1, 1, -1, -1 };
+int dy[] = { 1, 0, -1, 0, 1, -1, 1, -1 };
+const double EPS = (1e-7);
+ll Ceil(ll x, ll y) { return (x + y - 1) / y; }
+void run() {
+#ifndef ONLINE_JUDGE
+	freopen("input.txt", "r", stdin);
+	//freopen("output.txt", "w", stdout);
+#else
+#endif
+}
+void fast() { ios::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL); }
+ll n, m;
+bool val(int x, int y) {
+	return (x <= m && y <= n && y >= 1 && x >= 1);
+}
+const ll mod = 1e9 + 7, N = (100005 * 2);
+ll ou[N];
+char ar[55][55];
+bool vis[55][55];
+ll cnt = 0;
+void so(ll x, ll y) {
+	if (!val(x, y) || ar[x][y] == '#' || ar[x][y] == 'T' || vis[x][y]) {
+		return;
+	}
+
+	vis[x][y] = 1;
+	for (int i = 0; i < 4; i++)
+	{
+		if (ar[x + dx[i]][y + dy[i]] == 'T')
+		{
+			if (ar[x][y] == 'G') {
+				cnt++;
+			}
+			return;
+		}
+	}
+	if (ar[x][y] == 'G')
+	{
+		//cout << x << " " << y << endl;
+		cnt++;
+	}
+	for (int i = 0; i < 4; i++)
+	{
+		so(x + dx[i], y + dy[i]);
+	}
+}
+int main()
+{
+	run();
+	M_Sayed;
+	ll x, y;
+	while (cin >> n >> m)
+	{
+		memset(vis, 0, sizeof vis);
+		cnt = 0;
+		for (int i = 1; i <= m; i++) {
+			for (int j = 1; j <= n; j++) {
+				cin >> ar[i][j];
+				//cout << ar[i][j];
+				if (ar[i][j] == 'P')x = i, y = j;
+			}
+			//cout << endl;
+		}
+		//cout << x << " " << y << endl;
+		so(x, y);
+		cout << cnt << endl;
+	}
+}

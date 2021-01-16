@@ -1,0 +1,118 @@
+#define _CRT_SECURE_NO_WARNINGS
+/*                   وتزودوا فإن خير الزاد التقوى                    */
+/*       وما تدري نفس ماذا تکسب غدا وما تدري نفس باي ارض تموت      */
+#include <bits/stdc++.h>
+#include<unordered_map>
+#include<iomanip>
+#include<fstream>
+using namespace std;
+#define endl '\n'
+#define ll long long
+#define ull unsigned long long
+#define dll double
+#define PI acos(-1)
+#define watch(x) cerr<<#x<<" = "<<x<<" \n"
+#define sz(n) n.size()
+#define M_Sayed fast()
+#define all(v) v.begin(),v.end()
+#define allr(v) v.rbegin(),v.rend()
+#define RT(v) return cout<<v,0
+#define MP					make_pair
+int dx[] = { 0, 1, 0, -1, 1, 1, -1, -1 };
+int dy[] = { 1, 0, -1, 0, 1, -1, 1, -1 };
+const double EPS = (1e-7);
+const ll  mod = (1e9 + 7), OO = 1e9;
+ll Ceil(ll x, ll y)
+{
+    return (x + y - 1) / y;
+}
+void run()
+{
+#ifndef ONLINE_JUDGE
+    freopen("input.txt", "r", stdin);
+    //freopen("output.txt", "w", stdout);
+#else
+    //freopen("input", "r", stdin);
+    //freopen("output", "w", stdout);
+#endif
+}
+void fast()
+{
+    ios::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
+}
+// BFS (lenth && all path from an start node
+vector<vector<ll>>adjList;
+vector<int> vis(sz(adjList));
+struct ci
+{
+    int x,y,d;
+};
+bool ok(ci a,ci b)
+{
+    return (abs(a.x-b.x)<=a.d&&abs(a.y-b.y)<=a.d);
+}
+ll cnt = 0, c = 0,t;
+int n, e;
+void dfs(ll s)
+{
+    vis[s] = cnt;
+    for (auto it : adjList[s])
+    {
+        if (vis[it] != cnt)
+        {
+            dfs(it);
+        }
+    }
+}
+int main()
+{
+    M_Sayed;
+    run();
+    c=1;
+    cin>>t;
+    while(t--)
+    {
+        cin >> n;
+
+        vis=vector<int> (n + 5, -1);
+        adjList=vector<vector<ll>>(n + 1);
+        vector<ci>v(n);
+        map < ll, ll>mp;
+        for (int i = 0; i < n ; i++)
+        {
+            cin>>v[i].x>>v[i].y>>v[i].d;
+            v[i].d/=2;
+        }
+        for(int i=0; i<n; i++)
+        {
+            for(int j=0; j<n; j++)
+            {
+                if(j==i)continue;
+                if(ok(v[i],v[j]))
+                {
+                    adjList[i+1].push_back(j+1);
+                    //cout<<i+1<<" "<<j+1<<endl;
+                }
+
+            }
+        }
+        cnt=0;
+        for (int i = 1; i <= n; i++)
+        {
+            if (vis[i] == -1)
+            {
+                cnt++;
+                dfs(i);
+            }
+        }
+        int ans=0;
+        for (int i = 1; i <= n; i++)
+        {
+            mp[vis[i]]++;
+        }
+        ans=sz(mp);
+        cout<<ans<<endl;
+    }
+}

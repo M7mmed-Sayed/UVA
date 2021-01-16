@@ -1,0 +1,93 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include <bits/stdc++.h>
+using namespace std;
+#define endl '\n'
+#define ll long long
+#define ull unsigned long long
+#define dll double
+#define PI acos(-1)
+#define sz(n) n.size()
+#define RR return
+#define M7mmed_Sayed run()
+#define M_Sayed fast() 
+#define all(v) v.begin(),v.end()
+void run() {
+#ifndef ONLINE_JUDGE
+	freopen("input.in", "r", stdin);
+	//freopen("output.out", "w", stdout);
+#else
+#endif
+}
+void fast() {
+	ios::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
+}
+ll  gcd(ll x, ll y) { return(y == 0) ? x : gcd(y, x % y); }
+ull lcm(ll x, ll y) { RR  x / gcd(x, y) * y; }
+ll power(ll x, ll k,ll mod)
+{
+	ll ret = 1;
+	while (k) {
+		if (k & 1) ret = (ret * x) % mod;
+		k >>= 1; x = (x * x) % mod;
+	}
+	return ret;
+}
+vector<int>v;
+int arr[100000009];
+void gr()
+{
+	for (int i = 2; i < 1e7;i++) {
+		if (arr[i] == 0) {
+
+			v.push_back(i);
+			for (int j = i + i; j < 1e7; j+=i) {
+				arr[j] = 1;
+			}
+		}
+	}
+
+}
+int main()
+{
+	
+	ll t;
+	M7mmed_Sayed;
+	M_Sayed;
+	gr();
+	ll n, x, y;
+	while (cin>>n&&n) 
+	{
+		bool f = 0;
+		cout << n << " = ";
+		if (n < 0)
+		{
+			cout << -1;
+			n *= -1; 
+				f = 1;
+		
+		}
+		
+		
+		for (int i = 0; i<sz(v) && v[i]<= n; i++) {
+			while (n % v[i] == 0) {
+				if (!f)
+				{
+					cout << v[i]; f = 1;
+					n /= v[i];
+					
+				}
+				else {
+					cout << " x " << v[i]; n /= v[i];
+				}
+			}
+		}
+		if (n >= 2)
+		{if(f)
+			cout << " x " << n;
+		else 
+			cout << n;
+		}
+		cout<< endl;
+
+	}
+}

@@ -1,0 +1,56 @@
+#define _CRT_SECURE_NO_WARNINGS
+/*                   وتزودوا فإن خير الزاد التقوى                    */
+/*       وما تدري نفس ماذا تکسب غدا وما تدري نفس باي ارض تموت      */
+#include <bits/stdc++.h>
+#include<unordered_set>
+using namespace std;
+#define endl '\n'
+#define ll long long
+#define PI acos(-1)
+#define watch(x) cerr<<#x<<" = { "<<x<<" }\n"
+#define sz(n) n.size()
+#define Mo7med_Sayed fast();
+#define all(v) v.begin(),v.end()
+#define allr(v) v.rbegin(),v.rend()
+#define RT(v) return cout<<v,0;
+const double EPS = (1e-7);
+const ll OO = INT_MAX, mod = 1e9 + 7;
+void run() {
+#ifndef ONLINE_JUDGE
+	freopen("input.txt", "r", stdin);
+	freopen("output.txt", "w", stdout);
+#else
+#endif
+}
+void fast() { ios::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL); }
+ll n, m, k,t;
+vector<ll>v;
+ll dp[1005][1005];
+ll solve(int i, int j, int s, int en) {
+	if (i == j || s > en)return 0;
+	ll &ret = dp[s][en];
+	if (~ret)return ret;
+	ret = 1e15;
+	for (int a = s; a <= en; a++) {
+		ll cu = v[a];
+		ret = min(ret, solve(i, cu, s, a - 1) + solve(cu + 1, j, a + 1, en) + (j - i + 1));
+
+	}
+	return ret;
+}
+
+int main()
+{
+	//run();
+	Mo7med_Sayed;
+	while (cin>>n&&n) {
+		cin >> m;
+		cout << "The minimum cutting is ";
+		v.clear();
+		v.resize(m+1);
+		memset(dp,-1,sizeof dp);
+		for (int i=1; i <= m; i++)cin >> v[i];
+		cout << solve(1, n, 1, m) << ".\n";
+	}
+
+}

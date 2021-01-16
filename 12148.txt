@@ -1,0 +1,111 @@
+#define _CRT_SECURE_NO_WARNINGS
+/*                   وتزودوا فإن خير الزاد التقوى                    */
+/*       وما تدري نفس ماذا تکسب غدا وما تدري نفس باي ارض تموت      */
+/*اللهم ارزقنا راحة قبل الموت والشهادة عند الموت والجنة بعد الموت */
+#include <bits/stdc++.h>
+#include<unordered_map>
+#include<fstream>
+using namespace std;
+#include<iostream>
+#define endl '\n'
+#define ll long long
+#define ull unsigned long long
+#define dll double
+#define PI acos(-1)
+#define sz(n) n.size()
+#define M_Sayed fast() 
+#define all(v) v.begin(),v.end()
+#define M7mmed_Sayed run()
+void run() {
+#ifndef ONLINE_JUDGE
+	freopen("input.txt", "r", stdin);
+	freopen("output.txt", "w", stdout);
+#else
+#endif
+}
+void fast() {
+	ios::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
+}
+ll  gcd(ll x, ll y) { return(y == 0) ? abs(x) : gcd(y, x % y); }
+ull lcm(ll x, ll y) { return  abs(x / gcd(x, y) * y); }
+ll nCr(ll n, ll r) {
+	ll ans = 1;
+	ll div = 1;
+	if (n)
+		for (ll i = r + 1; i <= n; i++) {
+			ans = ans * i;
+			ans /= div;
+			div++;
+		}
+	return ans;
+}
+ll fast_power(ll x, ll k, ll mod)
+{
+	ll ret = 1;
+	while (k) {
+		if (k & 1) ret = (ret * x) % mod;
+		k >>= 1; x = (x * x) % mod;
+	}return ret;
+}
+bool vis[(ll)1e6 + 5];
+void save() {
+	for (int i = 2; i <= 1e6; i++) {
+		if (!vis[i])
+		{
+			for (int j = 2 * i; j < 1e6; j++) {
+				vis[j] = 1;
+			}
+		}
+	}
+}
+vector<long long >v(5);
+long long  solve(long long  id, long long  cnt, long long  me, long long  cur)
+{
+	if (id == 5)
+		return (cnt & 1) ? -me / cur : me / cur;
+	long long  ret = 0;
+	ret += solve(id + 1, cnt, me, cur);
+	ret += solve(id + 1, cnt + 1, me, lcm(cur, v[id]));
+	return ret;
+}
+ll THE_YEAR[] = {31, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+bool praday(int day, int man, int year, int laday, int laman, int layear) {
+	if (--day == 0) {
+		if (--man == 0) {
+			year--;
+			man=12;
+		}
+
+		day = THE_YEAR[man];
+
+		bool ok = (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0));
+		if (man == 2 && ok) day = 29;
+	}
+	return (day == laday && man == laman && year == layear);
+
+}
+int main()
+{
+	/*Team Formation ,Do Your Best*/
+	//M7mmed_Sayed;
+	M_Sayed;
+	ll t;
+	while (cin >> t )
+	{
+		if (!t)break;
+		ll day, man, ye, laday = 0, laman = 0, laye = 0, con, lacon = 0, sum = 0, num_days = 0;
+		while (t--)
+		{
+			cin >> day >> man >> ye >> con;
+			if (praday(day, man, ye, laday,laman, laye)) {
+				sum += (con - lacon);
+			//	cout << (con - lacon)<<" "<<ye << endl;;
+				num_days++;
+			}
+			laday = day, laye = ye, laman = man, lacon = con;
+
+		}
+		cout <<  num_days <<  " " <<sum<< endl;
+
+	}
+}

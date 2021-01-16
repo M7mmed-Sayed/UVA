@@ -1,0 +1,94 @@
+#define _CRT_SECURE_NO_WARNINGS
+/*                   وتزودوا فإن خير الزاد التقوى                    */
+/*       وما تدري نفس ماذا تکسب غدا وما تدري نفس باي ارض تموت      */
+#include <bits/stdc++.h>
+#include<unordered_map>
+using namespace std;
+#define endl '\n'
+#define ll long long
+#define PI acos(-1)
+#define watch(x) cerr<<#x<<" = { "<<x<<" }\n"
+#define sz(n) n.size()
+#define Mo7med_Sayed fast();
+#define all(v) v.begin(),v.end()
+#define allr(v) v.rbegin(),v.rend()
+#define RT(v) return cout<<v,0;
+#define mem(dp,n) memset(dp,n,sizeof dp)
+const double EPS = (1e-7);
+const ll OO = INT_MAX, mod = 1e9 + 7, N = 2e5 + 5;
+void run()
+{
+#ifndef ONLINE_JUDGE
+	freopen("input.txt", "r", stdin);
+	freopen("output.txt", "w", stdout);
+#else
+#endif
+}
+void fast()
+{
+	ios::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+}
+ll n, m, s, d, w, t = 1;
+vector<pair<int, int>>v;
+int dp[32][1005];
+ll solve(int ind, ll rem) {
+	if (ind == n)return 0;
+	int& ret = dp[ind][rem];
+	if (~ret)return ret;
+	ret = 0;
+	ret = ( solve(ind + 1, rem));
+	ll k = 3 * w * v[ind].first;
+	if (rem >= k) {
+		ret = max(solve(ind + 1, rem - k) + v[ind].second, (ll)ret);
+	}
+	return ret;
+}
+set<int>li;
+void bulid(int ind, ll rem)
+{
+	if (ind == n)return;
+	ll k = 3 * w * v[ind].first;
+	ll ret = solve(ind, rem);
+	if (ret == solve(ind + 1, rem - k) + v[ind].second)
+	{
+		li.insert(ind);
+		bulid(ind + 1, rem - k);
+	}
+	else if(ret == solve(ind + 1, rem )) {
+		bulid(ind + 1, rem);
+	}
+}
+void solve()
+{
+	int a = 0;
+	while (cin >> s >> w)
+	{
+		if (a++)cout << endl;
+		mem(dp, -1);
+		cin >> n;
+		li.clear();
+		for (int i = 0; i < n; i++) {
+			cin >> v[i].first >> v[i].second;
+		}
+		cout << solve(0, s) << endl;
+		bulid(0, s);
+		cout << sz(li) << endl;
+		for(auto i:li)
+		{	cout << v[i].first << " " << v[i].second << endl;
+		}
+	}
+}
+int main()
+{
+	//run();
+	Mo7med_Sayed;
+
+	while (t--)
+	{
+		v.resize(1006);
+		solve();
+	}
+
+}

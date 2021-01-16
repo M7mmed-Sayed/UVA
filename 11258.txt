@@ -1,0 +1,57 @@
+#define _CRT_SECURE_NO_WARNINGS
+/*                   وتزودوا فإن خير الزاد التقوى                    */
+/*       وما تدري نفس ماذا تکسب غدا وما تدري نفس باي ارض تموت      */
+#include <bits/stdc++.h>
+#include<unordered_map>
+using namespace std;
+#define endl '\n'
+#define ll long long
+#define PI acos(-1)
+#define watch(x) cerr<<#x<<" = { "<<x<<" }\n"
+#define sz(n) n.size()
+#define Mo7med_Sayed fast();
+#define all(v) v.begin(),v.end()
+#define allr(v) v.rbegin(),v.rend()
+#define RT(v) return cout<<v,0;
+const double EPS = (1e-7);
+const ll OO = INT_MAX, mod = 1e9 + 7;
+void run() {
+#ifndef ONLINE_JUDGE
+	freopen("input.txt", "r", stdin);
+	//freopen("output.txt", "w", stdout);
+#else
+#endif
+}
+void fast() { ios::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL); }
+ll n, m, k, x;
+ll dp[205];
+string s;
+
+ll solve(int x)
+{
+	if (x == m)return 0;
+	ll& ret = dp[x];
+	if (~ret)return ret;
+	ll sum = 0;
+	for (int i = x; i < m; i++) {
+		sum *= 10;
+		sum += s[i] - '0';
+		if (sum > INT_MAX)break;
+		ret = max(ret, solve(i + 1) + sum);
+	}
+	return ret;
+}
+
+int main()
+{
+	run();
+	Mo7med_Sayed;
+	cin >> n;
+	while (n--)
+	{
+		memset(dp, -1, sizeof dp);
+		cin >> s;
+		m = sz(s);
+		cout << solve(0) << endl;;
+	}
+}

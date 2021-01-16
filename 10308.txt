@@ -1,0 +1,96 @@
+#define _CRT_SECURE_NO_WARNINGS
+/*                   ФйрФоФг щеД нМя гАрго гАйчФЛ                    */
+/*       ФЦг йояМ Дщс Цгпг й≤сх шог ФЦг йояМ Дщс хгМ гяж йЦФй      */
+#include <bits/stdc++.h>
+#include<unordered_map>
+#include<iomanip>
+#include<fstream>
+using namespace std;
+#define endl '\n'
+#define ll long long
+#define ull unsigned long long
+#define mem(dp,x)  memset(dp,x,sizeof dp);
+#define PI acos(-1)
+#define watch(x) cerr<<#x<<" = "<<x<<" \n"
+#define sz(n) n.size()
+#define M_Sayed fast()
+#define all(v) v.begin(),v.end()
+#define allr(v) v.rbegin(),v.rend()
+#define RT(v) return cout<<v,0
+#define MP					make_pair
+int dx[] = { 1, 1,1, -1, -1, -1, 0, 0 };
+int dy[] = { 0, 1, -1, 0, 1, -1, 1, -1 };
+const double EPS = (1e-7);
+const ll  mod = (1e9 + 7), OO = 1e9,N=1e4+5;
+ll Ceil(ll x, ll y)
+{
+    return (x + y - 1) / y;
+}
+void run()
+{
+#ifndef ONLINE_JUDGE
+    freopen("input.txt", "r", stdin);
+    //freopen("output.txt", "w", stdout);
+#else
+    //freopen("input", "r", stdin);
+    //freopen("output", "w", stdout);
+#endif
+}
+void fast()
+{
+    ios::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
+}
+ll n, mx,test=1,u,v,w;
+vector<vector<pair<int,int>>>adj;
+int vis[N];
+int last;
+ll dfs(int u,ll dep,int par)
+{
+    vis[u]=test;
+    ll ret=0;
+    for(auto v:adj[u])
+    {
+        if(vis[v.first]!=test&&v.first!=par)
+        {
+            if(mx<dep+v.second){
+                last=v.first;
+                mx=dep+v.second;
+            }
+            ret=max(ret,dfs(v.first,dep+v.second,u)+v.second);
+        }
+    }
+    return ret;
+}
+int main()
+{
+    //run();
+    M_Sayed;
+    string s;
+    while(getline(cin,s))
+    {
+        if(!sz(s)||s=="0")break;
+        test++;
+        adj=vector<vector<pair<int,int>>>(N);
+        stringstream str(s);
+        str>>u>>v>>w;
+        adj[u].push_back({v,w});
+        adj[v].push_back({u,w});
+        while(getline(cin,s))
+        {
+            if(!sz(s)||s=="0")break;
+            stringstream str(s);
+            str>>u>>v>>w;
+            adj[u].push_back({v,w});
+            adj[v].push_back({u,w});
+
+        }
+        dfs(1,0,-1);
+        test++;
+       // cout<<mx<<endl;
+        mx=0;
+        cout<<max(dfs(last,0,-1),mx)<<endl;;
+        mx=0;
+    }
+}

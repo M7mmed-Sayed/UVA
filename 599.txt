@@ -1,0 +1,96 @@
+#define _CRT_SECURE_NO_WARNINGS
+/*                   ФйрФоФг щеД нМя гАрго гАйчФЛ                    */
+/*       ФЦг йояМ Дщс Цгпг й≤сх шог ФЦг йояМ Дщс хгМ гяж йЦФй      */
+#include <bits/stdc++.h>
+#include<unordered_map>
+#include<iomanip>
+#include<fstream>
+using namespace std;
+#define endl '\n'
+#define ll long long
+#define ull unsigned long long
+#define dll double
+#define PI acos(-1)
+#define watch(x) cerr<<#x<<" = "<<x<<" \n"
+#define sz(n) n.size()
+#define M_Sayed fast()
+#define all(v) v.begin(),v.end()
+#define allr(v) v.rbegin(),v.rend()
+#define RT(v) return cout<<v,0
+#define MP					make_pair
+int dx[] = { 0, 1, 0, -1, 1, 1, -1, -1 };
+int dy[] = { 1, 0, -1, 0, 1, -1, 1, -1 };
+const double EPS = (1e-7);
+const ll  mod = (1e9 + 7), OO = 1e9;
+ll Ceil(ll x, ll y)
+{
+    return (x + y - 1) / y;
+}
+void run()
+{
+#ifndef ONLINE_JUDGE
+    freopen("input.txt", "r", stdin);
+    //freopen("output.txt", "w", stdout);
+#else
+    //freopen("input", "r", stdin);
+    //freopen("output", "w", stdout);
+#endif
+}
+void fast()
+{
+    ios::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
+}
+ll sum,n,m,t;
+vector<ll>v;
+vector<vector<ll>>gr;
+bool vis[50];
+void dfs(ll u,bool &k) {
+	vis[u] = true;
+	for (auto it : gr[u]) {
+		if (!vis[it]) {
+			k=1;
+			dfs(it,k);
+		}
+	}
+}
+int main()
+{
+	//run();
+	M_Sayed;
+	cin >> t;
+	while (t--)
+	{
+		string s;
+		n = 2;
+		gr.clear();
+		gr.resize(28);
+		v.clear();
+		memset(vis, 0, sizeof vis);
+		while (cin >> s)
+		{
+			if (isalpha(s[1])&&!isalpha(s[0]))
+			{
+				gr[s[1] - 'A' + 1].push_back(s[3] - 'A' + 1);
+				gr[s[3] - 'A' + 1].push_back(s[1] - 'A' + 1);
+			}
+			else if (isalpha(s[0]))
+            {			for (ll i =0; i < sz(s); i+=2)v.push_back(s[i] - 'A' + 1);
+				break;
+			}
+		}
+		ll co=0, tre=0;
+		for (int i = 0; i < sz(v); i++) {
+			if (!vis[v[i]]) {
+				bool k = 0;
+				dfs(v[i],k);
+				tre += k;
+				co += !k;
+			}
+		}
+		cout << "There are " << tre << " tree(s) and " << co << " acorn(s).\n";
+	}
+
+
+}

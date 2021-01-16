@@ -1,0 +1,98 @@
+#define _CRT_SECURE_NO_WARNINGS
+/*                   وتزودوا فإن خير الزاد التقوى                    */
+/*       وما تدري نفس ماذا تکسب غدا وما تدري نفس باي ارض تموت      */
+#include <bits/stdc++.h>
+#include<unordered_map>
+#include<iomanip>
+#include<fstream>
+using namespace std;
+#define endl '\n'
+#define ll long long
+#define ull unsigned long long
+#define mem(dp,x)  memset(dp,x,sizeof dp);
+#define PI acos(-1)
+#define watch(x) cerr<<#x<<" = "<<x<<" \n"
+#define sz(n) n.size()
+#define M_Sayed fast()
+#define all(v) v.begin(),v.end()
+#define allr(v) v.rbegin(),v.rend()
+#define RT(v) return cout<<v,0
+#define MP					make_pair
+int dx[] = { 0, 1, 0, -1, 1, 1, -1, -1 };
+int dy[] = { 1, 0, -1, 0, 1, -1, 1, -1 };
+const double EPS = (1e-7);
+const ll  mod = (1e9 + 7), OO = 1e9,N=1e4+5;
+ll Ceil(ll x, ll y)
+{
+    return (x + y - 1) / y;
+}
+void run()
+{
+#ifndef ONLINE_JUDGE
+    freopen("input.txt", "r", stdin);
+    //freopen("output.txt", "w", stdout);
+#else
+    //freopen("input", "r", stdin);
+    //freopen("output", "w", stdout);
+#endif
+}
+void fast()
+{
+    ios::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
+}
+ll n,m,X=0,O=0,test=1,cit;
+vector<vector<char>>map1,ans;
+char city;
+int vis[22][22];
+int x1=0,y2=0;
+bool ok()
+{
+    return (x1>=0&&y2>=0&&x1<n&&y2<m);
+}
+string s,p;
+void dfs(int x,int y)
+{
+    vis[x][y]=test;
+    cit++;
+    for(int i=0; i<4; i++)
+    {
+        x1=x+dx[i],y2=y+dy[i];
+        if(vis[x1][y2]!=test&&ok())
+        {
+            if(map1[x1][y2]=='.')
+                dfs(x1,y2);
+            else if(map1[x1][y2]=='O')O=1;
+            else X=1;
+        }
+    }
+}
+int main()
+{
+    //run();
+    M_Sayed;
+    cin>>test;
+    test++;
+    for(;test>1; )
+    {
+        n=m=9;
+        map1=vector<vector<char>>(n,vector<char>(m));
+        int cnt1=0,cnt2=0;
+        for(auto &i:map1)for(auto &j:i){cin>>j; cnt1+=j=='X';cnt2+=j=='O';}
+        for(int i=0;i<n;i++)for(int j=0;j<m;j++){
+            if(vis[i][j]!=test&&map1[i][j]=='.'){
+                X=O=0;
+                cit=0;
+                dfs(i,j);
+                if(X==O)continue;
+                cnt1+=cit*X;
+                cnt2+=cit*O;
+            }
+        }
+        test--;
+        cout<<"Black "<<cnt1<<" White "<<cnt2<<endl;
+    }
+
+
+}

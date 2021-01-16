@@ -1,0 +1,44 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include <bits/stdc++.h>
+using namespace std;
+#define endl '\n'
+#define ll long long
+
+void run() {
+	ios::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
+#ifndef ONLINE_JUDGE
+	freopen("input.in", "r", stdin);
+	//freopen("output.out", "w", stdout);
+#else
+#endif
+}
+ll comp[105][105];
+void co() 
+{
+	for (int i = 0; i <= 102; i++)
+	{
+		for (int j = 0; j <= 102; j++)
+		{
+			if (j == 0||j==i)
+				comp[i][j] = 1;
+			else
+				comp[i][j] = comp[i - 1][j - 1] + comp[i - 1][j ];
+		}
+	}
+}
+//ll arr[105],orr[1000];
+//ll arr[1009][1000];
+
+int main() {
+	run();
+	co();
+	int x, y;
+	while (cin >> x >> y && x && y)
+	{
+		if (x < y)
+			cout << 0;
+		else
+			cout << x << " things taken " << y << " at a time is " << comp[x][y] << " exactly.\n";
+
+	}
+}

@@ -1,0 +1,90 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include <bits/stdc++.h>
+using namespace std;
+#define endl '\n'
+#define ll long long
+#define ull unsigned long long
+#define dll double
+#define PI acos(-1)
+#define sz(n) n.size()
+#define RR return
+#define M7mmed_Sayed run()
+#define M_Sayed fast() 
+#define all(v) v.begin(),v.end()
+void run() {
+#ifndef ONLINE_JUDGE
+	freopen("input.in", "r", stdin);
+	//freopen("output.out", "w", stdout);
+#else
+#endif
+}
+void fast() {
+	ios::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
+}
+ll  gcd(ll x, ll y) { RR(y == 0) ? x : gcd(y, x % y); }
+ull lcm(ll x, ll y) { RR  x / gcd(x, y) * y; }
+const ll lenth = 1000009;
+bool arr[lenth] ;
+
+void prime( ll x, vector<int>& v)
+{
+	while (x % 2 == 0) {
+		v.push_back(2);
+		x /= 2;
+	}
+	for (int i = 3; i < sqrt(x); i+=2)
+	{
+		while (x % i == 0)
+		{
+			v.push_back(i);
+			x /= i;
+		}
+	}
+	if (x > 2)
+		v.push_back(x);
+}
+
+
+int main()
+{
+
+	M7mmed_Sayed;
+	M_Sayed;
+	
+	
+	ll sum = 0,con=0,n,r,m;
+	cin >> m;
+	while (m--) 
+	{
+		cin >> n >> r;
+		con = 0;
+		ll maxx = 0,indx;
+		ll de = 0, dev = 1,nn=0;
+		for (ll i = n; i <= r; i++) 
+		{
+
+			vector<int>v;
+			prime(i, v);
+			map<int, int>mp;
+			for (int i = 0; i < sz(v); i++) {
+				if (mp[v[i]]<1)
+					mp[v[i]] += 2;
+				else
+					mp[v[i]]++;
+			}
+			for (auto it : mp)
+			{
+				dev *= it.second;
+
+			}
+			if (dev > de) {
+				de = dev;
+				nn = i;
+			}
+			dev = 1;
+		}
+		
+		cout << "Between " << n << " and " << r << ", " << nn<< " has a maximum of " << de << " divisors." << endl;
+	}
+	
+}

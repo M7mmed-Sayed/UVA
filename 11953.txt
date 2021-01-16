@@ -1,0 +1,72 @@
+#define _CRT_SECURE_NO_WARNINGS
+/*                   وتزودوا فإن خير الزاد التقوى                    */
+/*       وما تدري نفس ماذا تکسب غدا وما تدري نفس باي ارض تموت      */
+#include <bits/stdc++.h>
+#include<unordered_map>
+#include<iomanip>
+#include<fstream>
+using namespace std;
+#include<iostream>
+#define endl '\n'
+#define ll long long
+#define ull unsigned long long
+#define dll double
+#define PI acos(-1)
+#define watch(x) cout<<#x<<" = { "<<x<<" }\n"
+#define sz(n) n.size()
+#define M_Sayed fast() 
+#define all(v) v.begin(),v.end()
+#define allr(v) v.rbegin(),v.rend()
+#define RT(v) return cout<<v,0
+int dx[] = { 0, 1, 0, -1, 1, 1, -1, -1 };
+int dy[] = { 1, 0, -1, 0, 1, -1, 1, -1 };
+const double EPS = (1e-7);
+void run() {
+#ifndef ONLINE_JUDGE
+	freopen("input.txt", "r", stdin);
+	//freopen("output.txt", "w", stdout);
+#else
+#endif
+}
+void fast() { ios::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL); }
+ll n, m;
+const ll N = 1e2 + 5;
+vector<vector<char>> v(N, vector<char>(N, '.'));
+bool vis[N][N];
+void dfs(int x,int y) 
+{
+	if (vis[x][y] || v[x][y] == '.')return;
+	vis[x][y] = 1;
+	for (int i = 0; i < 4; i++) {
+		dfs(x + dx[i], y + dy[i]);
+	}
+}
+int main()
+{
+
+	//run();
+	M_Sayed;
+	int t;
+	cin >> t;
+	for(int k=1;k<=t;k++) {
+		memset(vis, 0, sizeof vis);
+		cin >> n ;
+		for (int i = 1; i <= n; i++) {
+			for (int j = 1; j <= n; j++) {
+				cin >> v[i][j];
+			}
+		}
+		ll cnt = 0;
+		for (int i = 1; i <= n; i++) {
+			for (int j = 1; j <= n; j++) {
+				if (v[i][j] == 'x'&&!vis[i][j]) {
+					dfs(i, j);
+					cnt++;
+				}
+			}
+		}
+		cout << "Case " << k << ": "<<cnt<<endl;
+
+	}
+	
+}

@@ -1,0 +1,104 @@
+#define _CRT_SECURE_NO_WARNINGS
+/*                   ФйрФоФг щеД нМя гАрго гАйчФЛ                    */
+/*       ФЦг йояМ Дщс Цгпг й≤сх шог ФЦг йояМ Дщс хгМ гяж йЦФй      */
+#include <bits/stdc++.h>
+#include<unordered_map>
+#include<iomanip>
+#include<fstream>
+using namespace std;
+#define endl '\n'
+#define ll long long
+#define ull unsigned long long
+#define mem(dp,x)  memset(dp,x,sizeof dp);
+#define PI acos(-1)
+#define watch(x) cerr<<#x<<" = "<<x<<" \n"
+#define sz(n) n.size()
+#define M_Sayed fast()
+#define all(v) v.begin(),v.end()
+#define allr(v) v.rbegin(),v.rend()
+#define RT(v) return cout<<v,0
+#define MP					make_pair
+int dx[] = { 0, 1, 0, -1, 1, 1, -1, -1 };
+int dy[] = { 1, 0, -1, 0, 1, -1, 1, -1 };
+const double EPS = (1e-7);
+const ll  mod = (1e9 + 7), OO = 1e9,N=100000+1;
+ll Ceil(ll x, ll y)
+{
+    return (x + y - 1) / y;
+}
+void run()
+{
+#ifndef ONLINE_JUDGE
+    freopen("input.txt", "r", stdin);
+    freopen("output.txt", "w", stdout);
+#else
+    //freopen("input", "r", stdin);
+    //freopen("output", "w", stdout);
+#endif
+}
+void fast()
+{
+    ios::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
+}
+ll n,m,test=1,cit,k;
+string s;
+char dr[]= {'l','u','r','d'};
+map<string,string>mp;
+bool val(int x,int y)
+{
+    return (x>=0&&x<3&&y>=0&&y<3);
+}
+void bfs()
+{
+    queue<pair<string,string>>q;
+    q.push({"12345678x",""});
+    mp["12345678x]"]="";
+    int j=0;
+    while(sz(q))
+    {
+        string  k=q.front().first;
+        string dep=q.front().second;
+        q.pop();
+        int c=0;
+        int pos=k.find('x');
+        int x=pos/3,y=pos%3;
+        for(int i=0; i<4; i++)
+        {
+            int x_=x+dx[i],y_=y+dy[i];
+            string ans=k,loc=dr[i]+dep;
+            if(val(x_,y_))
+            {
+                swap(ans[x*3+y],ans[x_*3+y_]);
+                if(mp.find(ans)==mp.end())
+                {
+                    mp[ans]=loc;
+                    q.push({ans,loc});
+                }
+
+            }
+
+        }
+    }
+}
+int main()
+{
+   // run();
+    M_Sayed;
+    cin>>test;
+    bfs();
+    while(test--)
+    {
+        char c;
+        s="";
+        for(int i=0; i<9; i++)
+        {
+            cin>>c;
+            s+=c;
+        }
+        if(mp.find(s)!=mp.end())cout<<mp[s]<<endl;
+        else cout<<"unsolvable\n";
+        if(test)cout<<endl;
+    }
+}

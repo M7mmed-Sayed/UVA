@@ -1,0 +1,99 @@
+#define _CRT_SECURE_NO_WARNINGS
+/*                   وتزودوا فإن خير الزاد التقوى                    */
+/*       وما تدري نفس ماذا تکسب غدا وما تدري نفس باي ارض تموت      */
+#include <bits/stdc++.h>
+#include<unordered_map>
+#include<iomanip>
+#include<fstream>
+using namespace std;
+#define endl '\n'
+#define ll long long
+#define ull unsigned long long
+#define mem(dp,x)  memset(dp,x,sizeof dp);
+#define PI acos(-1)
+#define watch(x) cerr<<#x<<" = "<<x<<" \n"
+#define sz(n) n.size()
+#define M_Sayed fast()
+#define all(v) v.begin(),v.end()
+#define allr(v) v.rbegin(),v.rend()
+#define RT(v) return cout<<v,0
+#define MP					make_pair
+int dx[] = { 0, 1, 0, -1, 1, 1, -1, -1 };
+int dy[] = { 1, 0, -1, 0, 1, -1, 1, -1 };
+const double EPS = (1e-7);
+const ll  mod = (1e9 + 7), OO = 1e9,N=1e4+5;
+ll Ceil(ll x, ll y)
+{
+    return (x + y - 1) / y;
+}
+void run()
+{
+#ifndef ONLINE_JUDGE
+    freopen("input.txt", "r", stdin);
+    //freopen("output.txt", "w", stdout);
+#else
+    //freopen("input", "r", stdin);
+    //freopen("output", "w", stdout);
+#endif
+}
+void fast()
+{
+    ios::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
+}
+ll n,m, mx,test=1,cit;
+vector<vector<char>>map1,ans;
+char city;
+int vis[22][22];
+int x1=0,y2=0;
+bool ok(){
+return (x1>=0&&y2>=0&&x1<n&&y2<m);
+}
+void dfs(int x,int y)
+{
+    vis[x][y]=test;
+    cit++;
+    for(int i=0;i<4;i++)
+    {
+         x1=x+dx[i],y2=y+dy[i];
+         y2+=m;
+         y2%=m;
+        if(vis[x1][y2]!=test&&ok()&&map1[x1][y2]==city)
+        {
+           dfs(x1,y2);
+        }
+    }
+}
+int main()
+{
+    //run();
+    M_Sayed;
+    while(cin>>n>>m&&n)
+    {
+        map1=vector<vector<char>>(n,vector<char>(m));
+        for(auto &i:map1)for(auto &j: i)cin>>j;
+        int x, y;
+        cin>>x>>y;
+        city=map1[x][y];
+        dfs(x,y);
+        mx=0;
+        for(int i=0;i<n;i++)
+        {
+            for(int j=0;j<m;j++)
+            {
+                if(vis[i][j]!=test&&city==map1[i][j])
+                {
+                    cit=0;
+                    dfs(i,j);
+                    mx=max(mx,cit);
+                }
+
+            }
+        }
+        test++;
+        cout<<(mx)<<endl;
+    }
+
+
+}

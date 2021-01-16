@@ -1,0 +1,84 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include <bits/stdc++.h>
+using namespace std;
+#define endl '\n'
+#define ll long long
+
+void run() {
+	ios::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
+#ifndef ONLINE_JUDGE
+	freopen("input.in", "r", stdin);
+	//freopen("output.out", "w", stdout);
+#else
+#endif
+}
+long long  gcd(long long x, long long y)
+{
+	if (y == 0)
+		return x;
+	else return gcd(y, x % y);
+}
+long long lcm(long long x, long long y)
+{
+	return  x / gcd(x, y) * y;
+}
+ll fact(int n, int x, int y, int i = 1, int j = 1, int k = 1, ll sum = 1) {
+	if (i == n + 1)
+		return sum;
+	sum *= i;
+	if (x >= j)
+	{
+		sum /= j;
+		j++;
+	}
+	else if (k <= y) {
+		sum /= k;
+		k++;
+	}
+	fact(n, x, y, i + 1, j, k, sum);
+
+}
+int arr[100001];
+int orr[100005];
+int main() {
+	run();
+
+
+	ll n, m, x;
+
+	string s, v = "MARGARITA", ss, s2;
+	cin >> n>>s;
+	while (n) 
+	{
+		ll r=-1, d=-1;
+		bool t = 0;
+		ll mn = INT_MAX;
+		for (int i = 0; i < s.size(); i++) 
+		{
+			if (s[i] == 'Z')
+			{
+				t = 1;
+				break;
+			}
+			if (s[i] == 'R')
+				r = i;
+			if (s[i] == 'D')
+				d = i;
+			if (r > -1 && d > -1) 
+			{
+				mn=min(abs(r-d),mn);
+			}
+
+		}
+		if (t)
+			cout << 0 << endl;
+		else
+			cout << mn << endl;
+		cin >> n >> s;
+	
+
+	}
+
+
+
+}

@@ -1,0 +1,68 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include <bits/stdc++.h>
+using namespace std;
+#define endl '\n'
+#define ll long long
+#define ull unsigned long long
+#define dll double
+#define PI acos(-1)
+#define sz(n) n.size()
+#define RR return
+#define M7mmed_Sayed run()
+#define M_Sayed fast() 
+#define all(v) v.begin(),v.end()
+void run() {
+#ifndef ONLINE_JUDGE
+	freopen("input.in", "r", stdin);
+	//freopen("output.out", "w", stdout);
+#else
+#endif
+}
+void fast() {
+	ios::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
+}
+ll  gcd(ll x, ll y) { RR(y == 0) ? x : gcd(y, x % y); }
+ull lcm(ll x, ll y) { RR  x / gcd(x, y) * y; }
+
+
+int main()
+{
+
+	M7mmed_Sayed;
+	M_Sayed;
+	string s;
+	ll a, b;
+	while (cin >> s >> a >> b)
+	{
+		ll x, z=0;
+		reverse(all(s));
+		for (int i = 0; i < sz(s); i++)
+		{
+			if (isalpha(s[i]))
+			z += (s[i]-55) * pow(a, i);
+			else
+			z += (s[i] - '0') * pow(a, i);
+		}
+		string t = "";
+		cout << setw(7);
+		if (!z)
+			cout << 0 ;
+		while (z)
+		{
+			int x = z % b;
+			if (x > 9)
+				t += char(x + 55);
+			else
+				t += char(x + '0');
+			z /= b;
+		}
+		reverse(all(t));
+		 if (sz(t) > 7)
+			cout << "ERROR";
+		else
+		cout << t ;
+		 cout << endl;
+	}
+	
+	
+}

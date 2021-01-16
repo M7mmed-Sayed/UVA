@@ -1,0 +1,108 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include <bits/stdc++.h>
+using namespace std;
+#define endl '\n'
+#define ll long long
+#define ull unsigned long long
+#define dll double
+#define PI acos(-1)
+#define sz(n) n.size()
+#define RR return
+#define M7mmed_Sayed run()
+#define M_Sayed fast() 
+#define all(v) v.begin(),v.end()
+void run() {
+#ifndef ONLINE_JUDGE
+	freopen("input.in", "r", stdin);
+	//freopen("output.out", "w", stdout);
+#else
+#endif
+}
+void fast() {
+	ios::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
+}
+ll  gcd(ll x, ll y) { return(y == 0) ? x : gcd(y, x % y); }
+ull lcm(ll x, ll y) { RR  x / gcd(x, y) * y; }
+ll power(ll x, ll k, ll mod)
+{
+	ll ret = 1;
+	while (k) {
+		if (k & 1) ret = (ret * x) % mod;
+		k >>= 1; x = (x * x) % mod;
+	}
+	return ret;
+}
+ll nCr(ll n, ll r) {
+	ll ans = 1;
+	ll div = 1;
+	if (n)
+		for (ll i = r + 1; i <= n; i++) {
+			ans = ans * i;
+			ans /= div;
+			div++;
+		}
+	return ans;
+}
+ll mod = 1073741824;
+int arr[10000009];
+void gr()
+{
+	for (int i = 1; i <= 1e6 + 5; i++) {
+
+		for (int j = i; j <= 1e6 + 5; j += i) {
+			arr[j] ++;
+
+		}
+	}
+
+}
+vector<ll>vc,vw;
+int main()
+{
+	M7mmed_Sayed;
+	M_Sayed;
+	ll n, m,x;
+	while (cin >> n && n) 
+	{
+		ll a, b;
+		stack<ll>st;
+		priority_queue<ll>pr;
+		queue<ll>qe;
+		bool s = 1, q = 1, p = 1,nnn=1;
+		while (n--) 
+		{
+			cin >> a >> b;
+			if (a == 1) {
+				st.push(b);
+				pr.push(b);
+				qe.push(b);
+			}
+			else if (!st.empty()) {
+				if (pr.top() != b)
+					p = 0;
+				if (st.top() != b)
+					s = 0;
+				if (qe.front() != b)
+					q = 0;
+				pr.pop();
+				st.pop();
+				qe.pop();
+			}
+			else
+				nnn = 0;
+		}
+		ll c = s+q+p;
+		if (!c || !nnn) {
+			cout << "impossible\n";
+		}
+		else if (c > 1) {
+			cout << "not sure\n";
+		}
+		else if (s)
+			cout << "stack\n";
+		else if (q)
+			cout << "queue\n";
+		else 
+			cout << "priority queue\n";
+	}
+}

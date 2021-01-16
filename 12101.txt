@@ -1,0 +1,100 @@
+#define _CRT_SECURE_NO_WARNINGS
+/*                   وتزودوا فإن خير الزاد التقوى                    */
+/*       وما تدري نفس ماذا تکسب غدا وما تدري نفس باي ارض تموت      */
+#include <bits/stdc++.h>
+#include<iomanip>
+#include<fstream>
+using namespace std;
+#define endl '\n'
+#define ll long long
+#define watch(x) cout<<#x<<" = "<<x<<" \n"
+#define sz(n) n.size()
+#define M_Sayed fast() 
+#define all(v) v.begin(),v.end()
+#define allr(v) v.rbegin(),v.rend()
+#define RT(v) return cout<<v,0
+#define MP					make_pair
+int dx[] = { 0, 1, 0, -1, 1, 1, -1, -1 };
+int dy[] = { 1, 0, -1, 0, 1, -1, 1, -1 };
+const double EPS = (1e-7);
+const ll  mod = (1e9 + 7), OO = 1e9;
+ll Ceil(ll x, ll y) { return (x + y - 1) / y; }
+void run() {
+#ifndef ONLINE_JUDGE
+	freopen("input.txt", "r", stdin);
+	//freopen("output.txt", "w", stdout);
+#else
+	//freopen("input", "r", stdin);
+	//freopen("output", "w", stdout);
+#endif
+}
+void fast() { ios::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL); }
+// BFS (lenth && all path from an start node
+bool sav[100050];
+void save() {
+	for (int i = 2; i <= 1e5; i++) {
+		if(!sav[i])
+		for (int j = i * 2; j <= 1e5 + 5; j+=i) {
+			sav[j]++;
+		}
+	}
+}
+vector<vector<ll>>adjList;
+vector<int> len(sz(adjList), OO);
+vector<int> par(sz(adjList), -1);
+ll sta, en;
+ll bfs(ll s,ll en) {
+	if (s== en)
+	{
+		return 0;
+	}
+	map<string, ll>vi;
+	queue< pair<string, int> > q;
+	string ss = to_string(s);
+	vi[ss]++;
+	q.push(MP(ss, 0));
+	string cur;ll dep;
+	while (!q.empty()) {
+		pair<string, int> p = q.front();
+		q.pop();
+		cur = p.first, dep = p.second;
+		for (int j = 0; j < 4; j++)
+		{
+			for (char i = '0'; i <= '9'; i++)
+			{
+				if (cur[j] != i) {
+					string cu = cur;
+					cu[j] = i;
+					ll k = stoi(cu);
+					if (!sav[k] && vi.find(cu) == vi.end()&&k>1000&&k<100000) {
+						q.push({ cu,dep + 1 });
+						//cout << k << endl;
+						vi[cu]++;
+						if (k == en) 
+						{
+							return dep + 1;
+						}
+					}
+				}
+			}
+		}
+	}
+	return -1;
+}
+int main()
+{
+	M_Sayed;
+	//run();
+	int n;
+	cin >> n;
+	save();
+	while (n--)
+	{
+		cin >> sta >> en;
+		ll k = bfs(sta, en);
+		if (k > -1)
+                 cout << k << endl;
+		else 
+               cout << "Impossible\n";
+	}
+}

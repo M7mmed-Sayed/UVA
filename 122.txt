@@ -1,0 +1,143 @@
+#define _CRT_SECURE_NO_WARNINGS
+/*                   وتزودوا فإن خير الزاد التقوى                    */
+/*       وما تدري نفس ماذا تکسب غدا وما تدري نفس باي ارض تموت      */
+#include <bits/stdc++.h>
+#include<unordered_map>
+#include<iomanip>
+#include<climits>
+#include<fstream>
+using namespace std;
+#define endl '\n'
+#define ll long long
+#define ull unsigned long long
+#define mem(dp,x)  memset(dp,x,sizeof dp);
+#define PI acos(-1)
+#define watch(x) cerr<<#x<<" = "<<x<<" \n"
+#define sz(n) n.size()
+#define M_Sayed fast()
+#define all(v) v.begin(),v.end()
+#define allr(v) v.rbegin(),v.rend()
+#define RT(v) return cout<<v,0
+#define MP					make_pair
+int dx[] = { 0, 1, 0, -1, 1, 1, -1, -1 };
+int dy[] = { 1, 0, -1, 0, 1, -1, 1, -1 };
+const double EPS = (1e-7);
+const ll  mod = (1e9 + 7), OO = 1e9,N=2e5+5;
+ll Ceil(ll x, ll y)
+{
+    return (x + y - 1) / y;
+}
+void run()
+{
+#ifndef ONLINE_JUDGE
+    freopen("input.txt", "r", stdin);
+    freopen("output.txt", "w", stdout);
+#else
+    //freopen("input", "r", stdin);
+    //freopen("output", "w", stdout);
+#endif
+}
+void fast()
+{
+    ios::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
+}
+ll n,m,test=1,cit;
+vector<vector<int>>adj;
+char city;
+int vis[N],ch[N];
+bool ok=0;
+map<string,int>mp1;
+pair<int,string> cal(string str)
+{
+    int a=str.find(',');
+    string ss=str.substr(1,a-1);
+    ll m=0,ind=1;
+    while(str[ind]!=',')m=m*10+str[ind++]-'0';
+    int b=str.find(')');
+    //cout<<ss<<" "<<str.substr(a+1,b-a-1)<<endl;;
+    return {m,str.substr(a+1,b-a-1)};;
+}
+int main()
+{
+    run();
+    M_Sayed;
+    test=-1;
+    string s;
+    vector<pair<int,string>>v,cop;
+    int mx=0,cu=0;
+    while(cin>>s&&s!="()")
+    {
+
+        pair<int,string>  ans=cal(s);
+        mp1[ans.second]=ans.first;
+        v.push_back({sz(ans.second),ans.second});
+        mx=max(mx,(int)sz(ans.second));
+        vis[sz(ans.second)]++;
+        while(vis[cu])cu++;
+        while(cin>>s&&s!="()")
+        {
+            ans=cal(s);
+            if(mp1.find(ans.second)!=mp1.end())
+            {
+                ok=1;
+                // cout<<ans.second<<endl;
+            }
+            mp1[ans.second]=ans.first;
+            if(!ok)
+            {
+                vis[sz(ans.second)]++;
+                while(vis[cu])cu++;
+                mx=max(mx,(int)sz(ans.second));
+                v.push_back({sz(ans.second),ans.second});
+            }
+        }
+        // for(auto i:v)cout<<i.second<<" ";
+        // cout<<endl;
+       // cout<<ok<<endl;
+        if(!ok)
+        {
+            sort(all(v));
+            cop=v;
+            // cout<<cu<<" "<<mx<<endl;
+            reverse(all(cop));
+            ok=(mx+1!=cu);
+            for(auto &i:cop)
+            {
+                string sco=i.second;
+                if(sz(sco))
+                {
+                    // cout<<sco<<" ";
+                    sco.pop_back();
+                    // cout<<sco<<endl;
+                    if(mp1.find(sco)==mp1.end())
+                    {
+                        //cout<<"*\n";
+                        ok=1;
+                        break;
+                    }
+                }
+            }
+        }
+        if(ok)cout<<"not complete\n";
+        else
+        {
+            bool b=0;
+            for(auto i:v)
+            {
+                if(b)cout<<" ";
+                cout<<mp1[i.second];
+                b=1;
+            }
+            cout<<endl;
+        }
+
+        ok=0;
+        mx=cu=0;
+        mem(vis,0);
+        mp1.clear();
+        v.clear();
+        cop.clear();
+    }
+}

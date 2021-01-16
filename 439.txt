@@ -1,0 +1,96 @@
+#define _CRT_SECURE_NO_WARNINGS
+/*                   ФйрФоФг щеД нМя гАрго гАйчФЛ                    */
+/*       ФЦг йояМ Дщс Цгпг й≤сх шог ФЦг йояМ Дщс хгМ гяж йЦФй      */
+#include <bits/stdc++.h>
+#include<unordered_map>
+#include<iomanip>
+#include<fstream>
+using namespace std;
+#define endl '\n'
+#define ll long long
+#define ull unsigned long long
+#define dll double
+#define PI acos(-1)
+#define watch(x) cerr<<#x<<" = "<<x<<" \n"
+#define sz(n) n.size()
+#define M_Sayed fast()
+#define all(v) v.begin(),v.end()
+#define allr(v) v.rbegin(),v.rend()
+#define RT(v) return cout<<v,0
+#define MP					make_pair
+int dx[] = { 1, 1, 2, 2, -1, -1, -2, -2 };
+int dy[] = { 2, -2, -1, 1, 2, -2, 1, -1 };
+const double EPS = (1e-7);
+const ll  mod = (1e9 + 7), OO = 1e9;
+ll Ceil(ll x, ll y)
+{
+    return (x + y - 1) / y;
+}
+void run()
+{
+#ifndef ONLINE_JUDGE
+    freopen("input.txt", "r", stdin);
+    //freopen("output.txt", "w", stdout);
+#else
+    //freopen("input", "r", stdin);
+    //freopen("output", "w", stdout);
+#endif
+}
+void fast()
+{
+    ios::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
+}
+ll n, m;
+
+pair<int,int>st,ed,ne;
+
+bool ch(int x,int y)
+{
+    if(x>=1&&y>=1&&x<=8&&y<=8)return 1;
+    return 0;
+}
+ll bfs()
+{
+    queue <pair<pair<int,int>,int>>q;
+    q.push({{st.first,st.second},0});
+    bool ok=1;
+    if(st==ed)return 0;
+    vector<vector<bool>>vis(11,vector<bool>(11,0));
+    while(sz(q))
+    {
+        pair<pair<int,int>,int> po=q.front();
+        q.pop();
+        int x=po.first.first,y=po.first.second,dep=po.second;
+        vis[x][y]=1;
+        for(int i=0; i<8; i++)
+        {
+            if(ch(x+dx[i],y+dy[i])&&!vis[x+dx[i]][y+dy[i]])
+            {
+                q.push({{x+dx[i],y+dy[i]},dep+1});
+                ne={x+dx[i],y+dy[i]};
+                if(ed == ne)
+                {
+                    return dep+1;
+                }
+            }
+
+        }
+    }
+  return 10;
+}
+int main()
+{
+    //run();
+    M_Sayed;
+    string s,d;
+    while(cin>>s)
+   {
+       cin>>d;
+       cout<<"To get from "<<s<<" to "<<d<<" takes ";
+       st={s[1]-'0',s[0]-'a'+1};
+       ed={d[1]-'0',d[0]-'a'+1};
+       cout<<bfs()<<" knight moves.\n";
+    }
+}

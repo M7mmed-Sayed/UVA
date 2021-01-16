@@ -1,0 +1,81 @@
+#define _CRT_SECURE_NO_WARNINGS
+/*                   وتزودوا فإن خير الزاد التقوى                    */
+/*       وما تدري نفس ماذا تکسب غدا وما تدري نفس باي ارض تموت      */
+#include <bits/stdc++.h>
+#include<unordered_map>
+using namespace std;
+#define endl '\n'
+#define ll long long
+#define PI acos(-1)
+#define watch(x) cerr<<#x<<" = { "<<x<<" }\n"
+#define sz(n) n.size()
+#define Mo7med_Sayed fast();
+#define all(v) v.begin(),v.end()
+#define allr(v) v.rbegin(),v.rend()
+#define RT(v) return cout<<v,0;
+#define mem(dp,n) memset(dp,n,sizeof dp)
+const double EPS = (1e-7);
+const ll OO = INT_MAX, mod = 1e9 + 7;
+void run()
+{
+#ifndef ONLINE_JUDGE
+    freopen("input.txt", "r", stdin);
+    //freopen("output.txt", "w", stdout);
+#else
+#endif
+}
+void fast()
+{
+    ios::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
+}
+ll n, m, k, d;
+struct dim {
+    ll r, c;
+};
+vector<dim>v;
+ll dp[11][11];
+ll solve(int l, int r) {
+
+    if (l ==r)return 0;
+    ll &ret = dp[l][r];
+    if (~ret)return ret;
+    ret = LONG_MAX;
+    for (int i = l; i < r; i++) {
+        ret = min(ret, solve(l, i) + solve(i + 1, r) + v[l].r * v[i].c * v[r].c);
+    }
+    return ret;
+}
+void backtrack(int l,int r) {
+    if (l == r ) {
+        cout << "A" << l + 1;
+    }
+    for (int i = l; i <= r; i++) {
+        if (solve(l, r) == solve(l, i) + solve(i + 1, r) + v[l].r * v[i].c * v[r].c) {
+            cout << "(";
+            backtrack(l, i);
+            cout << " x ";
+            backtrack(i+1, r);
+            cout << ")";
+            return;
+       }
+    }
+}
+int main()
+{
+    run();
+    Mo7med_Sayed;
+    int t=0;
+    while (cin >> n && n) {
+        v.clear();
+        v.resize(n);
+        cout << "Case " << ++t << ": ";
+        mem(dp, -1);
+        for (int j = 0; j < n; j++) {
+            cin >> v[j].r >> v[j].c;
+        }
+        backtrack(0, n - 1);
+        cout<< endl;
+   }
+}

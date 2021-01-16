@@ -1,0 +1,92 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include <bits/stdc++.h>
+/*                   وتزودوا فإن خير الزاد التقوى                    */
+/*       وما تدري نفس ماذا تکسب غدا وما تدري نفس باي ارض تموت      */
+#include<unordered_map>
+using namespace std;
+#define endl '\n'
+#define ll long long
+#define PI acos(-1)
+#define watch(x) cerr<<#x<<" = { "<<x<<" }\n"
+#define sz(n) n.size()
+#define Mo7med_Sayed fast();
+#define all(v) v.begin(),v.end()
+#define allr(v) v.rbegin(),v.rend()
+#define RT(v) return cout<<v,0;
+#define mem(dp,n) memset(dp,n,sizeof dp)
+const double EPS = (1e-7);
+const ll OO = INT_MAX, mod = 1e9 + 7, N = 2e5 + 5;
+void run() {
+#ifndef ONLINE_JUDGE
+	freopen("input.txt", "r", stdin);
+	//freopen("output.txt", "w", stdout);
+#else
+#endif
+}
+int dx[] = { 0, 1, 0, -1, 1, 1, -1, -1 };
+int dy[] = { 1, 0, -1, 0, 1, -1, 1, -1 };
+ll gcd(ll a, ll b) { return !b ? abs(a) : gcd(b, a % b); }
+ll lcm(ll a, ll b) { return abs(a / gcd(a, b)) * b; }
+void fast()
+{
+	ios::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+}
+struct  point
+{
+	int x, y;
+};
+ll  n, m, t;
+point s, e;
+ll dp[32][32];
+int cit[32][32][2];
+bool ok(int x, int y) { return x > 0 && y > 0 && x <= n && y <= n; }
+ll solve(int x,  int y)
+{
+
+	if (x == e.x && y == e.y)return 1;
+	ll& ret = dp[x][y];
+	if (~ret)return ret;
+	ret = 0;
+	for (int i = 0; i < 2; i++) {
+		if (!ok(x + dx[i], y + dy[i]))
+			continue;
+		//cout << x + dx[i] << " " << y + dy[i]<<" "<<i << endl;
+		if ( !cit[x + dx[i]][y + dy[i]][i])
+		{
+			//cout << x + dx[i] << " " << y+dy[i] << endl;
+			ret += solve(x + dx[i], y + dy[i]);
+		}
+	}
+	return ret;
+}
+int main()
+{
+	run();
+	map<char, int>po;
+	Mo7med_Sayed;
+	cin>> t;
+	while (t--)
+	{
+		cin >> n;
+		mem(dp, -1);
+		cin >> s.x >> s.y;
+		cin >> e.x >> e.y;
+		cin >> m;
+		mem(cit, 0);
+		while (m--) {
+			int x, y;
+			char c;
+			cin >> x >> y >> c;
+			if (c == 'N') {
+				cit[x][y + 1][0] = 1;
+			}
+			if (c == 'S')cit[x][y][0] = 1;
+			if (c == 'E')cit[x + 1][y][1] = 1;
+			if (c == 'W')cit[x][y][1] = 1;
+		}
+		//for (int i = 0; i < 4; i++)cout << cit[2][3][ << endl;
+		cout << (solve(s.x, s.y)) << endl;;
+	}
+}

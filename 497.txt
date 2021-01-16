@@ -1,0 +1,97 @@
+#define _CRT_SECURE_NO_WARNINGS
+/*                   وتزودوا فإن خير الزاد التقوى                    */
+/*       وما تدري نفس ماذا تکسب غدا وما تدري نفس باي ارض تموت      */
+#include <bits/stdc++.h>
+#include<unordered_map>
+using namespace std;
+#define endl '\n'
+#define ll long long
+#define PI acos(-1)
+#define watch(x) cerr<<#x<<" = { "<<x<<" }\n"
+#define sz(n) n.size()
+#define Mo7med_Sayed fast();
+#define all(v) v.begin(),v.end()
+#define allr(v) v.rbegin(),v.rend()
+#define RT(v) return cout<<v,0;
+#define mem(dp,n) memset(dp,n,sizeof dp)
+const double EPS = (1e-7);
+const ll OO = INT_MAX, mod = 1e9 + 7, N = 2e5 + 5;
+void run()
+{
+#ifndef ONLINE_JUDGE
+	freopen("input.txt", "r", stdin);
+	freopen("output.txt", "w", stdout);
+#else
+#endif
+}
+void fast()
+{
+	ios::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+}
+ll n, m, k, d, x, t = 1;
+vector<int>v;
+	string s;
+void solve()
+{
+	int st = 0;
+	vector<ll>ri;
+	vector<ll>last(n), pr(n),ppo(n);
+	map<int, vector<ll>>mp;
+	vector < vector<int>>vis(n+1);
+	for (int i = 0; i < n; i++) {
+		int po = lower_bound(ri.begin(), ri.end(), v[i]) - ri.begin();
+		if (sz(ri) == po) {
+			ri.push_back(v[i]);
+			//cout << st << endl;
+		}
+		else
+		{
+			ri[po] = v[i];
+		}
+		vis[po].clear();
+		vis[po].push_back(i);
+		last[i] = ((po > 0) ? pr[po - 1] : -1);
+		//cout << last[i] << endl;
+		pr[po] = i;
+	}
+	//cout << endl;
+	st = vis[sz(ri)-1].back();
+	//cout << st << endl;
+	vector<ll>rev;
+	cout << sz(ri) << endl;
+	while (st != -1)
+	{
+		rev.push_back(v[st]);
+		st = last[st];
+	}
+	reverse(all(rev));
+	for (auto i :rev )cout << i << endl;
+	
+}
+int main()
+{
+	run();
+	Mo7med_Sayed;
+	cin >> t;
+	cin.ignore();
+	getline(cin, s);
+	while (t--)
+	{
+		v.clear();
+		cout << "Max hits: ";
+
+		while (getline(cin, s) && !s.empty())
+		{
+			v.push_back(stoi(s));
+		}
+		//getline(cin, s);
+		n = sz(v);
+		solve();
+		if (t)cout << endl;
+		v.clear();
+
+	}
+
+}

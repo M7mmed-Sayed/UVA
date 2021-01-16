@@ -1,0 +1,93 @@
+#define _CRT_SECURE_NO_WARNINGS
+/*                   وتزودوا فإن خير الزاد التقوى                    */
+/*       وما تدري نفس ماذا تکسب غدا وما تدري نفس باي ارض تموت      */
+#include <bits/stdc++.h>
+#include<unordered_map>
+#include<iomanip>
+#include<fstream>
+using namespace std;
+#define endl '\n'
+#define ll long long
+#define ull unsigned long long
+#define dll double
+#define PI acos(-1)
+#define watch(x) cerr<<#x<<" = "<<x<<" \n"
+#define sz(n) n.size()
+#define M_Sayed fast()
+#define all(v) v.begin(),v.end()
+#define allr(v) v.rbegin(),v.rend()
+#define RT(v) return cout<<v,0
+#define MP					make_pair
+int dx[] = { 0, 1, 0, -1, 1, 1, -1, -1 };
+int dy[] = { 1, 0, -1, 0, 1, -1, 1, -1 };
+const double EPS = (1e-7);
+const ll  mod = (1e9 + 7), OO = 2e18;
+ll Ceil(ll x, ll y)
+{
+	return (x + y - 1) / y;
+}
+void run()
+{
+#ifndef ONLINE_JUDGE
+	freopen("input.txt", "r", stdin);
+	//freopen("output.txt", "w", stdout);
+#else
+	//freopen("input", "r", stdin);
+	//freopen("output", "w", stdout);
+#endif
+}
+void fast()
+{
+	ios::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+}
+ll m = 0, n, c = 0, t = 1,s,d;
+vector< vector< pair<int, ll>>> adj;
+vector<ll> dist(n, OO), pre(n, -1);
+ll Dijkstra(int src, int dis)	// O(E logV)
+{
+	dist = vector<ll>(n + 1, OO);
+	dist[src] = 0;
+	priority_queue < pair<ll, ll >> q;
+	q.push({ 0, src });
+	while (!q.empty()) {
+		int u = q.top().second;
+		int w = q.top().first;
+		q.pop();
+		if (-w > dist[u])	continue;
+		for (auto v : adj[u]) {
+			if (dist[v.first] > -w + v.second)
+			{
+				dist[v.first] = v.second - w;
+				q.push({ -dist[v.first],v.first });
+			}
+		}
+	}
+	return dist[dis];
+}
+int main()
+{
+	M_Sayed;
+	run();
+	int t;
+	cin >> t;
+	int ou = 1;
+	while (t--)
+	{
+		cin >> n>>m>>s>>d;
+		adj.resize(n + 1);
+		for (int i = 1; i <= m; i++)
+		{
+				int x, y, z;
+				cin >>x>> y >> z;
+				adj[x].push_back({ y,z });
+				adj[y].push_back({ x,z });
+		}
+		string ss = "unreachable";
+		ll ans = Dijkstra(s, d);
+		if (ans != OO)ss = to_string(ans);
+		cout << "Case #" << ou++ << ": " << ss << endl;
+		adj.clear();
+	}
+}

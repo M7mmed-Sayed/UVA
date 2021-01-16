@@ -1,0 +1,64 @@
+#define _CRT_SECURE_NO_WARNINGS
+/*                   وتزودوا فإن خير الزاد التقوى                    */
+/*       وما تدري نفس ماذا تکسب غدا وما تدري نفس باي ارض تموت      */
+#include <bits/stdc++.h>
+#include<unordered_map>
+using namespace std;
+#define endl '\n'
+#define ll long long
+#define sz(n) n.size()
+#define M_Sayed fast() 
+void run() {
+#ifndef ONLINE_JUDGE
+	freopen("input.txt", "r", stdin);
+	//freopen("output.txt", "w", stdout);
+#else
+#endif
+}
+void fast() { ios::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL); }
+ll sum = 0, n, c = 0;
+vector<ll>v, v2;
+int dp[1005][50006] = { -1 };
+ll arr[1000];
+ll so(int x, int pr)
+{
+
+	if (x == n)
+	{
+		return c;
+	}
+	int &ret = dp[x][pr];
+	if (~ret)
+		return ret;
+	ret = so(x + 1, pr);
+	if (v[x] >=pr)
+	{
+		//cout << v[x] << endl;
+		ret =1+so(x + 1, pr);
+	}
+	return ret;
+	
+}
+int main()
+{
+	//run();
+	M_Sayed;
+	string s;
+	ll t;
+	cin >> t;
+	while (t--)
+	{
+		memset(dp, -1, sizeof dp);
+		cin >> n;
+		v.resize(n);
+		v2.resize(n);
+		for (int i = 0; i < n; i++) {
+			cin >> v[i];
+		}
+		ll sum = 0;
+		for (int i = 0; i < n; i++) {
+			sum +=so(i + 1, v[i]);
+		}
+		cout << sum << endl;;
+	}
+}

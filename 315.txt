@@ -1,0 +1,120 @@
+#define _CRT_SECURE_NO_WARNINGS
+/*                   وتزودوا فإن خير الزاد التقوى                    */
+/*       وما تدري نفس ماذا تکسب غدا وما تدري نفس باي ارض تموت      */
+#include <bits/stdc++.h>
+#include<unordered_map>
+#include<iomanip>
+#include<fstream>
+using namespace std;
+#define endl '\n'
+#define ll long long
+#define ull unsigned long long
+#define dll double
+#define PI acos(-1)
+#define watch(x) cerr<<#x<<" = "<<x<<" \n"
+#define sz(n) n.size()
+#define M_Sayed fast()
+#define all(v) v.begin(),v.end()
+#define allr(v) v.rbegin(),v.rend()
+#define RT(v) return cout<<v,0
+#define MP					make_pair
+int dx[] = { 0, 1, 0, -1, 1, 1, -1, -1 };
+int dy[] = { 1, 0, -1, 0, 1, -1, 1, -1 };
+const double EPS = (1e-7);
+const ll  mod = (1e9 + 7), OO = 1e9;
+ll Ceil(ll x, ll y)
+{
+    return (x + y - 1) / y;
+}
+void run()
+{
+#ifndef ONLINE_JUDGE
+    freopen("input.txt", "r", stdin);
+     freopen("output.txt", "w", stdout);
+#else
+    //freopen("input", "r", stdin);
+    //freopen("output", "w", stdout);
+#endif
+}
+void fast()
+{
+    ios::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
+}
+ll n,m,test;
+vector< vector<int> > adjList;
+vector< vector<int> > com;
+vector<int> inStack, lowLink, dfn;
+stack<int> stk;
+int ndfn,mx=1e7,ind;
+vector<ll>cost;
+set<int>br;
+bool ok=1;
+void art_bridges(int node,int par)
+{
+    lowLink[node] = dfn[node] = ndfn++;
+    inStack[node]=1;
+    for(auto ch: adjList[node])
+    {
+
+        if(ch!=par)
+        {
+            if (!inStack[ch])
+            {
+                art_bridges(ch,node);
+                lowLink[node] = min(lowLink[node], lowLink[ch]);
+                if(lowLink[ch]>=dfn[node])
+                {
+                    if(!dfn[node]&&ok)ok=0;
+                   else  br.insert(node);
+                }
+            }
+            else
+                lowLink[node] = min(lowLink[node], dfn[ch]);
+        }
+    }
+
+}
+void rest()
+{
+    lowLink=dfn= vector<int>(n+1,-1);
+    inStack=vector<int>(n+1,0);
+    adjList=vector< vector<int>>(n+5);
+    ndfn =ind=mx=0;
+    br.clear();
+    com.clear();
+}
+int main()
+{
+    M_Sayed;
+    run();
+    while(cin>>n)
+    {
+        if(!n)RT("");
+        rest();
+        cin.ignore();
+        string s;
+        int x,y;
+        ok=1;
+        while(getline(cin,s))
+        {
+            if(s=="0")break;
+             stringstream str(s);
+             str>>x;
+             while(str>>y){
+                //  cout<<x<<" "<<y<<endl;
+                adjList[x].push_back(y);
+                adjList[y].push_back(x);
+             }
+        }
+        for(int i=1; i<=n; i++)
+        {
+           if(dfn[i]==-1)
+            art_bridges(i,-1);
+        }
+
+         x=sz(br);
+        cout<<x<<endl;
+    }
+}

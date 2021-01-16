@@ -1,0 +1,101 @@
+#define _CRT_SECURE_NO_WARNINGS
+/*                   ФйрФоФг щеД нМя гАрго гАйчФЛ                    */
+/*       ФЦг йояМ Дщс Цгпг й≤сх шог ФЦг йояМ Дщс хгМ гяж йЦФй      */
+#include <bits/stdc++.h>
+#include<unordered_map>
+#include<iomanip>
+#include<fstream>
+using namespace std;
+#define endl '\n'
+#define ll long long
+#define ull unsigned long long
+#define dll double
+#define PI acos(-1)
+#define watch(x) cerr<<#x<<" = "<<x<<" \n"
+#define sz(n) n.size()
+#define M_Sayed fast()
+#define all(v) v.begin(),v.end()
+#define allr(v) v.rbegin(),v.rend()
+#define RT(v) return cout<<v,0
+#define MP					make_pair
+int dx[] = { 0, 1, 0, -1, 1, 1, -1, -1 };
+int dy[] = { 1, 0, -1, 0, 1, -1, 1, -1 };
+const double EPS = (1e-7);
+const ll  mod = (1e9 + 7), OO = 1e9;
+ll Ceil(ll x, ll y)
+{
+    return (x + y - 1) / y;
+}
+void run()
+{
+#ifndef ONLINE_JUDGE
+    freopen("input.txt", "r", stdin);
+    //freopen("output.txt", "w", stdout);
+#else
+    //freopen("input", "r", stdin);
+    //freopen("output", "w", stdout);
+#endif
+}
+void fast()
+{
+    ios::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
+}
+vector<vector<ll>> g;
+bool bo = 1;
+vector<int> ans;
+bool vis[1000099];
+bool sta[1000099];
+void dfs(int per, int node)
+{
+	vis[node] = true;
+	sta[node] = true;
+
+	bool ret = 0;
+	for (int child : g[node])
+	{
+		if (!vis[child])
+		{
+			dfs(node, child);
+		}
+		else if (sta[child])
+			bo = 1;
+	}
+	sta[node] = 0;
+	ans.push_back(node);
+}
+int main()
+{
+	//run();
+	M_Sayed;
+	ll n, m, k, t = 0;
+	while (cin >> n >> m )
+	{
+		ll x, y;
+		if (!n && !m)break;
+		ans.clear();
+		g.clear();
+		g.resize(n + 5);
+		memset(vis, 0, sizeof vis);
+		for (int i = 1; i <= m; i++) {
+			cin >> x >> y;
+			g[x].push_back(y);
+		}
+		bool as = 0;
+		for (int i = 1; i <= n; i++) {
+			if (!vis[i]) {
+				bo = 0;
+				dfs(-1, i);
+				as |= bo;
+				if (as)break;
+			}
+		}
+		if (as)cout << "IMPOSSIBLE\n";
+		else {
+			reverse(all(ans));
+			for (int i = 0; i < sz(ans); i++)
+				cout << ans[i] << "\n";
+		}
+	}
+}

@@ -1,0 +1,49 @@
+#define _CRT_SECURE_NO_WARNINGS
+/*                   وتزودوا فإن خير الزاد التقوى                    */
+/*       وما تدري نفس ماذا تکسب غدا وما تدري نفس باي ارض تموت      */
+#include <bits/stdc++.h>
+#include<unordered_map>
+using namespace std;
+#define endl '\n'
+#define ll long long
+#define sz(n) n.size()
+#define M_Sayed fast() 
+void run() {
+#ifndef ONLINE_JUDGE
+	freopen("input.txt", "r", stdin);
+	//freopen("output.txt", "w", stdout);
+#else
+#endif
+}
+void fast() { ios::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL); }
+
+int main()
+{
+	run();
+	M_Sayed;
+	ll n;
+	cin >> n;
+	ll A, B, C;
+	while (n--) {
+		cin >> A >> B >> C;
+		bool sol = false;
+		int x, y, z;
+		for (x = -100; x <= 100; x++)
+		{
+			for (y = -100; y <= 100; y++)
+			{
+				for (z = -100; z <= 100; z++)
+				{
+					if (y != x && z != x && z != y && // all three must be different
+						x + y + z == A && x * y * z == B && x * x + y * y + z * z == C) {
+						if (!sol) cout << x << " " << y << " " << z << endl;;
+						sol = true;
+						y=z=x = 100;
+					}
+				}
+			}
+		}
+		
+		if (!sol)cout << "No solution.\n";
+	}
+}

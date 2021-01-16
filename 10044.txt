@@ -1,0 +1,124 @@
+#define _CRT_SECURE_NO_WARNINGS
+/*                   ФйрФоФг щеД нМя гАрго гАйчФЛ                    */
+/*       ФЦг йояМ Дщс Цгпг й≤сх шог ФЦг йояМ Дщс хгМ гяж йЦФй      */
+#include <bits/stdc++.h>
+#include<unordered_map>
+#include<iomanip>
+#include<fstream>
+using namespace std;
+#define endl '\n'
+#define ll long long
+#define ull unsigned long long
+#define mem(dp,x)  memset(dp,x,sizeof dp);
+#define PI acos(-1)
+#define watch(x) cerr<<#x<<" = "<<x<<" \n"
+#define sz(n) n.size()
+#define M_Sayed fast()
+#define all(v) v.begin(),v.end()
+#define allr(v) v.rbegin(),v.rend()
+#define RT(v) return cout<<v,0
+#define MP					make_pair
+int dx[]= {-1,0,1,0};
+int dy[]= {0,1,0,-1};
+const double EPS = (1e-7);
+const ll  mod = (1e9 + 7), OO = 1e9,N=100000+1;
+ll Ceil(ll x, ll y)
+{
+    return (x + y - 1) / y;
+}
+void run()
+{
+#ifndef ONLINE_JUDGE
+    freopen("input.txt", "r", stdin);
+     //freopen("output.txt", "w", stdout);
+#else
+    //freopen("input", "r", stdin);
+    //freopen("output", "w", stdout);
+#endif
+}
+void fast()
+{
+    ios::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
+}
+ll n,m,test=1,cit,k,t;
+map<string,set<string>>adj;
+map<string,int>mp;
+string s,s1,bo;
+void bfs(string st)
+{
+    queue<pair<string,int>>q;
+    q.push({st,0});
+    while(sz(q))
+    {
+        string ans=q.front().first;
+        int dep=q.front().second;
+        q.pop();
+        set<string> child=adj[ans];
+        for(auto i:child)
+        {
+            //cout<<i<<" :";
+            if(mp.find(i)==mp.end())
+            {
+                mp[i]=dep+1;
+                q.push({i,dep+1});
+            }
+        }
+    }
+}
+int main()
+{
+    run();
+    M_Sayed;
+    cin>>t;
+    while(t--)
+    {
+        cout<<"Scenario "<<test++<<endl;
+        cin>>n>>m;
+        cin.ignore();
+     string sta;
+        for(int i=0; i<n; i++)
+        {
+            getline(cin,s);
+            size_t pos = 0,pos1;
+            int x=0;
+            int last=0;
+            set<string>st;
+            string wr="";;
+            for(int i=0;i<sz(s);i++)
+            {
+                if(s[i]==','||s[i]==':')x++;
+                if(x==2){
+                        while(wr.back()==' ')wr.pop_back();
+                    if(wr.find("Erdos")!=string::npos)sta=wr;
+                    st.insert(wr);
+                     //   cout<<wr<<" *";
+                    x=0;
+                    wr="";
+                }
+                else if(!(!x&&s[i]==' ')){
+                    wr+=s[i];
+                }
+            }
+            for(auto j:st)for(auto jj:st)if(jj!=j){adj[j].insert(jj),adj[jj].insert(j);}
+        }
+        //cout<<sz(adj["Smith, M.N."]);
+        bfs(sta);
+        while(m--)
+        {
+            getline(cin,s);
+            int pos=0;
+            while(pos<sz(s)&&(s[pos]==' '))
+            {
+                pos++;
+            }
+            cout<<s<<" ";
+            string gh=s.substr(pos,sz(s)-pos);
+            if(mp.find(gh)!=mp.end())cout<<mp[gh]<<endl;
+            else cout<<"infinity\n";
+        }
+        mp.clear();
+        adj.clear();
+    }
+}

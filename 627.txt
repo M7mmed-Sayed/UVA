@@ -1,0 +1,116 @@
+#define _CRT_SECURE_NO_WARNINGS
+/*                   وتزودوا فإن خير الزاد التقوى                    */
+/*       وما تدري نفس ماذا تکسب غدا وما تدري نفس باي ارض تموت      */
+#include <bits/stdc++.h>
+#include<unordered_map>
+using namespace std;
+#define endl '\n'
+#define ll long long
+#define ull unsigned long long
+#define dll double
+#define PI acos(-1)
+#define watch(x) cout<<#x<<" = { "<<x<<" }\n"
+#define sz(n) n.size()
+#define M_Sayed fast() 
+#define all(v) v.begin(),v.end()
+#define allr(v) v.rbegin(),v.rend()
+#define RT(v) return cout<<v,0
+#define MP	make_pair
+int dx[] = { 0, 1, 0, -1, 1, 1, -1, -1 };
+int dy[] = { 1, 0, -1, 0, 1, -1, 1, -1 };
+const double EPS = (1e-7);
+ll Ceil(ll x, ll y) { return (x + y - 1) / y; }
+void run() {
+#ifndef ONLINE_JUDGE
+	freopen("input.txt", "r", stdin);
+	//freopen("input.txt", "w", stdout);
+#else
+#endif
+}
+ll gcd(ll a, ll b) { return !b ? abs(a) : gcd(b, a % b); }
+ll lcm(ll a, ll b) { return abs(a / gcd(a, b)) * b; }
+ll power(ll x, ll y, ll mod) {
+	if (y == 0) return 1;
+	if (y == 1) return x % mod;
+	ll r = power(x, y >> 1, mod);
+	return (((r * r) % mod) * power(x, y & 1, mod)) % mod;
+}
+void fast() { ios::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL); }
+const ll N = 2 * 1e5 + 10, mod = 1e9 + 7; int  test = 1;
+ll n, m, x, k, t = 1, quiry = 1;
+vector<vector<ll>>adj;
+int len[500];
+pair<int, int>st, ed;
+vector<int>ans;
+int bfs(int st, int ed) {
+	queue<pair< int, vector<int>>> q;
+	int cur, dep;
+	q.push({ st,{} });
+	while (!q.empty())
+	{
+		int x = q.front().first; vector<int>cu = q.front().second;
+		q.pop();
+		len[x] = quiry;
+		if (x == ed)
+		{
+			ans = cu;
+			break;
+		}
+		for (auto u : adj[x]) {
+			if (len[u] != quiry) {
+				cu.push_back(u);
+				q.push({ u,cu });
+				cu.pop_back();
+			}
+		}
+
+	}
+	return (sz(ans));
+}
+int main()
+{
+	//run();
+	M_Sayed;
+	while (cin >> n)
+	{
+
+		string s;
+		cout << "-----\n";
+		adj = vector<vector<ll>>(n);
+		for (int a = 0; a < n; a++)
+		{
+			cin >> s;
+			s += '*';
+			int host = 0;
+			int j = 0, i = 0;
+			vector<int>edg;
+
+			while (i < sz(s)) {
+				if (!isdigit(s[i]))
+				{
+					if (i - j > 0)
+						edg.push_back(stoi(s.substr(j, i - j)) - 1);
+					j = i + 1;
+				}
+				i++;
+			}
+			for (int i = 1; i < sz(edg); i++) { adj[edg[0]].push_back(edg[i]);  }
+		}
+			cin >> m;
+			while (m--)
+			{
+				quiry++;
+				cin >> st.first >> ed.first ;
+				if (bfs(st.first-1, ed.first-1)) {
+					cout << st.first;
+					for (auto i : ans)cout <<" "<< i+1;
+					cout << endl;
+				ans.clear();
+				}
+				else cout << "connection impossible\n";
+				
+			}
+	}
+
+
+}

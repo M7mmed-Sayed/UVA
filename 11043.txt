@@ -1,0 +1,74 @@
+#define _CRT_SECURE_NO_WARNINGS
+/*                   وتزودوا فإن خير الزاد التقوى                    */
+/*       وما تدري نفس ماذا تکسب غدا وما تدري نفس باي ارض تموت      */
+#include <bits/stdc++.h>
+#include<unordered_map>
+using namespace std;
+#define endl '\n'
+#define ll long long
+#define PI acos(-1)
+#define watch(x) cerr<<#x<<" = { "<<x<<" }\n"
+#define sz(n) n.size()
+#define MP(x,y) make_pair (x,y)
+#define Mo7med_Sayed fast();
+#define all(v) v.begin(),v.end()
+#define allr(v) v.rbegin(),v.rend()
+#define RT(v) return cout<<v,0;
+#define mem(dp,n) memset(dp,n,sizeof dp)
+const double EPS = (1e-7);
+const ll OO = INT_MAX, mod = 1e9 + 7;
+void run()
+{
+#ifndef ONLINE_JUDGE
+	freopen("input.txt", "r", stdin);
+	//freopen("output.txt", "w", stdout);
+#else
+#endif
+}
+void fast()
+{
+	ios::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+}
+ll n, m, k, x, t;
+string s, p;
+int main()
+{
+	run();
+	Mo7med_Sayed;
+	cin >> t;
+	while (t--)
+	{
+		ll L, l=0, r=0;
+		string s;
+		cin >> L >> n;
+		ll dl = 0, dr = 0;
+		L *= 100;
+		while (n--)
+		{
+			cin >> x >> s;
+			if (s == "left")
+			{
+				if (dl + x > L)
+				{
+					dl = x;
+					l++;
+				}
+				else dl += x;
+			}
+			else
+			{
+				if (dr + x > L)
+				{
+					dr = x;
+					r++;
+				}
+				else dr += x;
+			}
+		}
+		if (dl)l++;
+		if (dr)r++;
+		cout << max(2 * l - 1, 2 * r)<<endl;
+	}
+}

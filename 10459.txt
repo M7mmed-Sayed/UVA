@@ -1,0 +1,103 @@
+#define _CRT_SECURE_NO_WARNINGS
+/*                   وتزودوا فإن خير الزاد التقوى                    */
+/*       وما تدري نفس ماذا تکسب غدا وما تدري نفس باي ارض تموت      */
+#include <bits/stdc++.h>
+#include<unordered_map>
+#include<iomanip>
+#include<fstream>
+using namespace std;
+#define endl '\n'
+#define ll long long
+#define ull unsigned long long
+#define mem(dp,x)  memset(dp,x,sizeof dp);
+#define PI acos(-1)
+#define watch(x) cerr<<#x<<" = "<<x<<" \n"
+#define sz(n) n.size()
+#define M_Sayed fast()
+#define all(v) v.begin(),v.end()
+#define allr(v) v.rbegin(),v.rend()
+#define RT(v) return cout<<v,0
+#define MP					make_pair
+int dx[] = { 1, 1,1, -1, -1, -1, 0, 0 };
+int dy[] = { 0, 1, -1, 0, 1, -1, 1, -1 };
+const double EPS = (1e-7);
+const ll  mod = (1e9 + 7), OO = 1e9,N=1e4+5;
+ll Ceil(ll x, ll y)
+{
+    return (x + y - 1) / y;
+}
+void run()
+{
+#ifndef ONLINE_JUDGE
+    freopen("input.txt", "r", stdin);
+    //freopen("output.txt", "w", stdout);
+#else
+    //freopen("input", "r", stdin);
+    //freopen("output", "w", stdout);
+#endif
+}
+void fast()
+{
+    ios::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
+}
+ll n, mx,test=1,u,v,w;
+vector<vector<int>>adj,ans;
+int vis[5005][5005];
+int last;
+int dp[5005][5005];
+int dfs(int u,int par)
+{
+    if(~dp[u][par])
+        return dp[u][par];
+    int ret=0;
+    for(auto v:adj[u])
+    {
+        if(v!=par)
+        {
+            ret=max(ret,dfs(v,u)+1);
+        }
+    }
+    return dp[u][par]=ret;
+}
+int main()
+{
+    //run();
+    M_Sayed;
+    string s;
+    while(cin>>n)
+    {
+        if(n==0)break;
+        test++;
+        mem(dp,-1);
+        adj=vector<vector<int>>(n+1);
+        ans=vector<vector<int>>(n+5);
+        ll k=n;
+        for(int i=1; i<=n; i++)
+        {
+            cin>>k;
+            while(k--)
+            {
+                cin>>v;
+                //cout<<i<<" "<<v<<endl;
+                adj[i].push_back(v);
+                adj[v].push_back(i);
+            }
+        }
+        int best=1e9,wr=0;
+        for(int i=1;i<=n;i++){
+                int ind=dfs(i,0);
+               // cout<<ind<<endl;
+                best=min(ind,best);
+                wr=max(ind,wr);
+             ans[ind].push_back(i);
+        }
+        cout<<"Best Roots  :";
+        for(auto i:ans[best])cout<<" "<<i;
+        cout<<endl;
+        cout<<"Worst Roots :";
+        for(auto i:ans[wr])cout<<" "<<i;
+        cout<<endl;
+    }
+}

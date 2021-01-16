@@ -1,0 +1,111 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include <bits/stdc++.h>
+using namespace std;
+#define endl '\n'
+#define ll long long
+#define ull unsigned long long
+#define dll double
+#define pe acos(-1)
+#define sz(n) n.size()
+#define M7mmed_Sayed run()
+#define M_Sayed fast() 
+#define all(v) v.begin(),v.end()
+void run() {
+#ifndef ONLINE_JUDGE
+	freopen("input.in", "r", stdin);
+	freopen("output.out", "w", stdout);
+#else
+#endif
+}
+void fast() {
+	ios::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
+}
+ll  gcd(ll x, ll y) { return(y == 0) ? x : gcd(y, x % y); }
+ull lcm(ll x, ll y) { return  x / gcd(x, y) * y; }
+ll fastpower(ll x, ll k, ll mod)
+{ll ret = 1;
+	while (k) {if (k & 1) ret = (ret * x) % mod;
+	k >>= 1; x = (x * x) % mod;}
+	return ret;}
+ll nCr(ll n, ll r) {
+	ll ans = 1, div = 1;
+	if (n)for (ll i = r + 1; i <= n; i++) {
+		ans = ans * i; ans /= div;
+		div++;
+	}
+	return ans;
+}
+vector<ll>v(10006);
+bool val(vector<ll>v, ll n, ll m, ll sum) {
+	ll sum2 = sum;
+	ll ind = -1;
+	ll i = 0;
+	while (i < n && m>0) {
+		if (v[i] <= sum2) {
+			sum2 -= v[i];
+			i++;
+
+		}
+		else
+		{
+			m--;
+			sum2 = sum;
+		}
+	}
+	if (i == n)
+		return 1;
+	else
+		return 0;
+	/*for (int i = 0; i < n; i++) 
+	{
+		if (v[i] <= sum2) {
+			sum2 -= v[i];
+			ind = i;
+		}
+		else
+		{
+			ind = i;
+			break;
+		}
+
+	}
+	ll k = n - ind;
+	return k<=m-1;*/
+}
+
+ll mod = 1000000007;
+int main()
+{
+	M7mmed_Sayed;
+	M_Sayed;
+	ll t, n, m,k;
+	while (cin >> n)
+	{
+		if (!n)
+			return 0;
+		cin >> m;
+		k = m;
+	//	cout<< n << " " << m << endl;;
+		
+		ll sum = 0;
+		for (int i = 0; i < n; i++)
+		{
+			cin >> v[i];
+			sum += v[i];
+		}
+		//sort(all(v));
+		ll re = -1;
+		ll st = 0, en = sum,md;
+		while (st <= en) {
+			md = (st + en)/2;
+			if (val(v, n, m, md)) {
+				re = md;
+				en = md - 1;
+			}
+			else
+				st = md + 1;
+		}
+
+		cout << re << endl;
+	}
+}

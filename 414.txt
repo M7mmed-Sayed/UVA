@@ -1,0 +1,187 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include <bits/stdc++.h>
+using namespace std;
+#define endl '\n'
+#define ll long long
+
+void run() {
+	ios::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
+#ifndef ONLINE_JUDGE
+	freopen("input.in", "r", stdin);
+	//freopen("output.out", "w", stdout);
+#else
+#endif
+}
+#define all(v) (v.begin(),v.end())
+long long  gcd(long long x, long long y)
+{
+	if (y == 0)
+		return x;
+	else return gcd(y, x % y);
+}
+long long lcm(long long x, long long y)
+{
+	return  x / gcd(x, y) * y;
+}
+ll fact(int n, int x, int y, int i = 1, int j = 1, int k = 1, ll sum = 1) {
+	if (i == n + 1)
+		return sum;
+	sum *= i;
+	if (x >= j)
+	{
+		sum /= j;
+		j++;
+	}
+	else if (k <= y) {
+		sum /= k;
+		k++;
+	}
+	fact(n, x, y, i + 1, j, k, sum);
+
+}
+#define PI cos(-1)
+void yon(ll x) {
+	if(x)	cout << "YES\n";
+	else
+		cout << "NO\n";
+}
+int arr[19];
+//int orr[100005];
+int main() {
+	run();
+	ll n, m, x;
+	
+
+	string s, v = "MARGARITA", ss, s2;
+
+	while (1)
+	{
+		for (int i = 0; i < 15; i++) {
+			arr[i] = 0;
+
+		}
+		cin >> x;
+		if (x == 0)
+			break;
+		ll xx = x;
+		getline(cin, s);
+		while (x--)
+		{
+
+			getline(cin, s);
+			//	cout << s << endl;
+			for (int i = 0; i < s.size(); i++)
+			{
+				if (s[i] == 'X')
+					arr[x]++;
+			}
+		}
+		ll sum = 0;
+		sort(arr, arr + xx);
+		for (int i = 0; i < xx; i++)
+		{
+			sum += (arr[xx - 1] - arr[i]);
+		}
+		cout << sum << endl;
+
+
+
+	}
+
+
+
+
+}#define _CRT_SECURE_NO_WARNINGS
+#include <bits/stdc++.h>
+using namespace std;
+#define endl '\n'
+#define ll long long
+
+void run() {
+	ios::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
+#ifndef ONLINE_JUDGE
+	freopen("input.in", "r", stdin);
+	//freopen("output.out", "w", stdout);
+#else
+#endif
+}
+#define all(v) (v.begin(),v.end())
+long long  gcd(long long x, long long y)
+{
+	if (y == 0)
+		return x;
+	else return gcd(y, x % y);
+}
+long long lcm(long long x, long long y)
+{
+	return  x / gcd(x, y) * y;
+}
+ll fact(int n, int x, int y, int i = 1, int j = 1, int k = 1, ll sum = 1) {
+	if (i == n + 1)
+		return sum;
+	sum *= i;
+	if (x >= j)
+	{
+		sum /= j;
+		j++;
+	}
+	else if (k <= y) {
+		sum /= k;
+		k++;
+	}
+	fact(n, x, y, i + 1, j, k, sum);
+
+}
+#define PI cos(-1)
+void yon(ll x) {
+	if(x)	cout << "YES\n";
+	else
+		cout << "NO\n";
+}
+int arr[19];
+//int orr[100005];
+int main() {
+	run();
+	ll n, m, x;
+	
+
+	string s, v = "MARGARITA", ss, s2;
+
+	while (1)
+	{
+		for (int i = 0; i < 15; i++) {
+			arr[i] = 0;
+
+		}
+		cin >> x;
+		if (x == 0)
+			break;
+		ll xx = x;
+		getline(cin, s);
+		while (x--)
+		{
+
+			getline(cin, s);
+			//	cout << s << endl;
+			for (int i = 0; i < s.size(); i++)
+			{
+				if (s[i] == 'X')
+					arr[x]++;
+			}
+		}
+		ll sum = 0;
+		sort(arr, arr + xx);
+		for (int i = 0; i < xx; i++)
+		{
+			sum += (arr[xx - 1] - arr[i]);
+		}
+		cout << sum << endl;
+
+
+
+	}
+
+
+
+
+}
